@@ -33,6 +33,7 @@ namespace DashTechCMS.Models
         public virtual DbSet<OnBoardingPayment> OnBoardingPayments { get; set; }
         public virtual DbSet<PODetail> PODetails { get; set; }
         public virtual DbSet<ReportSubmissionDetail> ReportSubmissionDetails { get; set; }
+        public virtual DbSet<RequestMaster> RequestMasters { get; set; }
         public virtual DbSet<SessionListDetail> SessionListDetails { get; set; }
         public virtual DbSet<SubmissionMaster> SubmissionMasters { get; set; }
         public virtual DbSet<TaskCategoryMaster> TaskCategoryMasters { get; set; }
@@ -44,6 +45,7 @@ namespace DashTechCMS.Models
         public virtual DbSet<CandidateTimeLine> CandidateTimeLines { get; set; }
         public virtual DbSet<CommentDetail> CommentDetails { get; set; }
         public virtual DbSet<DepartmentMaster> DepartmentMasters { get; set; }
+        public virtual DbSet<FollowUpMaster> FollowUpMasters { get; set; }
         public virtual DbSet<InterviewDetail> InterviewDetails { get; set; }
         public virtual DbSet<InterviewMode> InterviewModes { get; set; }
         public virtual DbSet<JobPortalMaster> JobPortalMasters { get; set; }
@@ -61,6 +63,5 @@ namespace DashTechCMS.Models
         public virtual DbSet<TechnologyMaster> TechnologyMasters { get; set; }
         public virtual DbSet<UserAccountDetail> UserAccountDetails { get; set; }
         public virtual DbSet<VisaTitleMaster> VisaTitleMasters { get; set; }
-        public virtual DbSet<RequestMaster> RequestMasters { get; set; }
     }
 }

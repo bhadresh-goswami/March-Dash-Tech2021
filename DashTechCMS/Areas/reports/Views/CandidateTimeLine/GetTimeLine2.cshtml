@@ -1,0 +1,376 @@
+﻿@model IEnumerable<DashTechCMS.Models.Reports.CandidateDetailBoardModel>
+@using DashTechCMS.Models
+
+@{
+    ViewBag.Title = "GetTimeLine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    dashrdku_database db = new dashrdku_database();
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12" style="overflow:scroll">
+
+            <table class="table table-hover table-bordered compact" id="dataTableTimeLine">
+                <thead>
+                    <tr style="border:0px;background-color:none">
+                        <th></th>
+                        <th>Total  <span class="badge bg-fuchsia">@Model.ToList().Count</span></th>
+                        <th></th>
+                        <th></th>
+
+                        <th>Onboarding <span class="badge bg-fuchsia">@Model.Where(a => a.CurrentStatus == "Sales").ToList().Count</span></th>
+                        <th>Not Responding to CV Team <span class="badge bg-fuchsia">@Model.Where(a => a.CurrentStatus == "Not Responding To Resume Team").ToList().Count</span></th>
+                        <th>
+                            RUC Pending <span class="badge bg-fuchsia">@Model.Where(a => a.CurrentStatus == "RUC Pending").ToList().Count</span>
+
+                        </th>
+
+
+                        <th>Training <span class="badge bg-fuchsia">@Model.Where(a => a.TrainingEndDate != null && a.TrainingEndDate > DateTime.Now.Date).ToList().Count</span></th>
+
+                        <th>
+                            Marketing  <span class="badge bg-green-active">@Model.Where(a => a.CurrentStatus == "In Marketing").ToList().Count</span><br />
+                            On Hold  <span class="badge bg-yellow-gradient">@Model.Where(a => a.CurrentStatus == "On Hold").ToList().Count</span><br />Dropped  <span class="badge bg-maroon">@Model.Where(a => a.CurrentStatus == "Dropped").ToList().Count</span><br />PO  <span class="badge bg-blue-gradient">@Model.Where(a => a.CurrentStatus == "Placed").ToList().Count</span>
+                        </th>
+                    </tr>
+                    <tr style="background-color:#232020;color:whitesmoke">
+                        <th>FollowUp</th>
+                        <th>
+                            CurrentStatus
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>Location</th>
+                        <th>Onboarding Details</th>
+                        <th>
+                            Expert CV Status
+                        </th>
+
+                        <th>
+                            Technical Expert RUC
+                        </th>
+                        <th>
+                            Training (If Enrolled)
+                        </th>
+                        <th>
+                            Marketing Department
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        int cid = item.CandidateId;
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary" onclick="ChangeStatus(@cid)"><i class="glyphicon glyphicon-comment"></i></button>
+                            </td>
+                            <td>
+                                <span>@item.CurrentStatus</span>
+                                @if (item.CurrentStatus.ToLower().Contains("dropped") || item.CurrentStatus.ToLower().Contains("refund"))
+                                {
+                                    <img src="~/Content/images/dropped.png" width="30px" />
+                                }
+                                @if (item.CurrentStatus.ToLower().Contains("placed"))
+                                {
+                                    <img src="~/Content/images/done.png" width="30px" />
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CandidateName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocationName)
+                            </td>
+                            <td>
+
+                                @item.OnBoardingDate.ToString("yyyy-MM-dd") <br /><b>by</b>
+                                @item.SalesAssocaites
+                                <button class="btn bg-maroon btn-flat" data-toggle="modal" data-target="#modal-comment-sales-@item.CandidateId"><i class="glyphicon glyphicon-list"></i></button>
+                                <div class="modal fade" id="modal-comment-sales-@item.CandidateId" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title">Sale's Follow up Details</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="box-footer box-comments">
+                                                    @{
+                                                        int scid = item.CandidateId;
+                                                        var slist = db.FollowUpMasters.Where(a => a.RefCandidateId == scid && a.FollowUpStatus.Contains("Sales")).OrderByDescending(a => a.FollowUpDate).ThenByDescending(c => c.FollowUpTime).ToList();
+                                                    }
+                                                    @foreach (var sitem in slist)
+                                                    {
+                                                        var user = db.UserAccountDetails.Where(a => a.RocketName == sitem.FollowUpBy).ToList();
+                                                        TimeSpan timespan = sitem.FollowUpTime;
+                                                        DateTime time = DateTime.Today.Add(timespan);
+                                                        string displayTime = time.ToString("hh:mm tt");
+                                                        <div class="box-comment">
+                                                            <!-- User image -->
+                                                            <img class="img-circle img-sm" src="~/Content/Profile/@user.First().UserImageUrl" alt="User Image">
+
+                                                            <div class="comment-text">
+                                                                <span class="username">
+                                                                    @sitem.FollowUpBy
+                                                                    <span class="text-muted pull-right">@sitem.FollowUpDate.ToString("MM/dd/yyyy") <b>,</b> @displayTime</span>
+                                                                </span><!-- /.username -->
+                                                                <b>@sitem.FollowUpStatus</b>
+                                                                <br />
+                                                                @sitem.FollowUpMessage
+                                                            </div>
+                                                            <!-- /.comment-text -->
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                @{
+                                    string img = "undone.png";
+
+                                }
+                                @if (item.ResumeProcessStarted != null)
+                                {
+                                    DateTime dt = (DateTime)item.ResumeProcessStarted;
+                                    <span>@dt.ToString("yyyy-MM-dd, hh:mm tt")</span><span><br /> <b>by </b> @item.ExpertCVMakerName</span>
+                                    img = "running.png";
+                                    <br />
+
+                                }
+                                @if (item.ResumeProcessEnded != null)
+                                {
+
+                                    <br /><b>Ended:</b>
+
+                                    img = "done.png";
+                                    DateTime dt = (DateTime)item.ResumeProcessEnded;
+                                    <span>@dt.ToString("yyyy-MM-dd")</span>
+                                    <br />
+
+                                }
+
+                                <img src="~/Content/images/@img" width="25px" />
+                                <button class="btn bg-maroon btn-flat" data-toggle="modal" data-target="#modal-comment-resume-@item.CandidateId"><i class="glyphicon glyphicon-list"></i></button>
+                                <div class="modal fade" id="modal-comment-resume-@item.CandidateId" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title">Sale's Follow up Details</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="box-footer box-comments">
+                                                    @{
+                                                        int rcid = item.CandidateId;
+                                                        var rlist = db.FollowUpMasters.Where(a => a.RefCandidateId == rcid && (a.FollowUpStatus.Contains("Resume") || a.FollowUpStatus.Contains("RUC"))).OrderByDescending(a => a.FollowUpDate).ThenByDescending(c => c.FollowUpTime).ToList();
+                                                    }
+                                                    @foreach (var ritem in rlist)
+                                                    {
+                                                        var user = db.UserAccountDetails.Where(a => a.RocketName == ritem.FollowUpBy).ToList();
+                                                        TimeSpan timespan = ritem.FollowUpTime;
+                                                        DateTime time = DateTime.Today.Add(timespan);
+                                                        string displayTime = time.ToString("hh:mm tt");
+                                                        <div class="box-comment">
+                                                            <!-- User image -->
+                                                            <img class="img-circle img-sm" src="~/Content/Profile/@user.First().UserImageUrl" alt="User Image">
+
+                                                            <div class="comment-text">
+                                                                <span class="username">
+                                                                    @ritem.FollowUpBy
+                                                                    <span class="text-muted pull-right">@ritem.FollowUpDate.ToString("MM/dd/yyyy") <b>,</b> @displayTime</span>
+                                                                </span><!-- /.username -->
+                                                                <b>@ritem.FollowUpStatus</b>
+                                                                <br />
+                                                                @ritem.FollowUpMessage
+                                                            </div>
+                                                            <!-- /.comment-text -->
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+
+                                @if (item.ResumeUnderstandingDate != null)
+                                {
+                                    DateTime dt = (DateTime)item.ResumeUnderstandingDate;
+                                    <span>@dt.ToString("yyyy-MM-dd") by @item.ResumeUnderstandingBy</span>
+                                    <img src="~/Content/images/done.png" width="25px" /><br />
+                                    
+
+                                }
+                                else if (item.CurrentStatus.Contains("Understanding"))
+                                {
+                                    <img src="~/Content/images/running.png" width="25px" />
+                                    <br />
+                                    
+
+                                }
+                                <button class="btn bg-maroon btn-flat" data-toggle="modal" data-target="#modal-comment-resume-@item.CandidateId"><i class="glyphicon glyphicon-list"></i></button>
+                                <div class="modal fade" id="modal-comment-resume-@item.CandidateId" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title">Sale's Follow up Details</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="box-footer box-comments">
+                                                    @{
+                                                        int ercid = item.CandidateId;
+                                                        var erlist = db.FollowUpMasters.Where(a => a.RefCandidateId == ercid && (a.FollowUpStatus.Contains("RUC"))).OrderByDescending(a => a.FollowUpDate).ThenByDescending(c => c.FollowUpTime).ToList();
+                                                    }
+                                                    @foreach (var eritem in erlist)
+                                                    {
+                                                        var user = db.UserAccountDetails.Where(a => a.RocketName == eritem.FollowUpBy).ToList();
+                                                        TimeSpan timespan = eritem.FollowUpTime;
+                                                        DateTime time = DateTime.Today.Add(timespan);
+                                                        string displayTime = time.ToString("hh:mm tt");
+                                                        <div class="box-comment">
+                                                            <!-- User image -->
+                                                            <img class="img-circle img-sm" src="~/Content/Profile/@user.First().UserImageUrl" alt="User Image">
+
+                                                            <div class="comment-text">
+                                                                <span class="username">
+                                                                    @eritem.FollowUpBy
+                                                                    <span class="text-muted pull-right">@eritem.FollowUpDate.ToString("MM/dd/yyyy") <b>,</b> @displayTime</span>
+                                                                </span><!-- /.username -->
+                                                                <b>@eritem.FollowUpStatus</b>
+                                                                <br />
+                                                                @eritem.FollowUpMessage
+                                                            </div>
+                                                            <!-- /.comment-text -->
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+
+                                @if (item.TrainingStartDate != null)
+                                {
+                                    DateTime sdt = (DateTime)item.TrainingStartDate;
+                                    <span>@sdt.ToString("yyyy-MM-dd") to</span>
+                                    DateTime edt = (DateTime)item.TrainingEndDate;
+                                    <span>@edt.ToString("yyyy-MM-dd")</span>
+                                    <br /><span> <b>by</b> @item.TrainerName</span><br />
+                                    <button class="btn bg-maroon btn-flat"><i class="glyphicon glyphicon-list"></i></button>
+
+                                }
+
+                            </td>
+                            <td>
+
+                                @if (item.MarketingStartDate != null)
+                                {
+                                    DateTime dt = (DateTime)item.MarketingStartDate;
+                                    <span>@dt.ToString("yyyy-MM-dd") with @item.RecruiterName</span><br />
+                                    <button class="btn bg-maroon btn-flat"><i class="glyphicon glyphicon-list"></i></button>
+
+                                }
+                                @if (item.PODate != null)
+                                {
+                                    DateTime pdt = (DateTime)item.PODate;
+                                    <br /><span>PO Date:  @pdt.ToString("yyyy-MM-dd")</span>
+                                }
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#dataTableTimeLine').DataTable({
+            dom: 'Bfrtip', "order": [[3, "desc"]], pageLength: 100,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ], fixedHeader: true
+        });
+    });
+
+    function ChangeStatus(id) {
+
+        $("#modal-default-comment").modal();
+        $("#cid").val(id);
+    }
+
+</script>
+<div class="modal fade" id="modal-default-comment" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Add Follow up Details</h4>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("ChangeStatus","CandidateTimeLine",new { @area = "reports"})" method="get">
+                    <input type="hidden" name="cid" id="cid" />
+                    <table class="table table-responsive">
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                @{
+                                    string[] status = { "Sales", "In Marketing", "In Training", "Placed", "Resume Verification", "Resume Call Done", "Not Responding To Resume Team", "Resume Preparation", "RUC Pending", "RUC Done", "Not Responding For RUC", "Not Responding To Recruiter", "Dropped", "Delete Entry", "On Hold" };
+                                }
+                                <select class="form-control" id="status" name="status">
+                                    @foreach (string st in status)
+                                    {
+                                        <option value="@st">@st</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Message</td>
+                            <td>
+                                <textarea class="form-control" id="message" name="message"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="" colspan="2" align="right">
+                                <button class="btn btn-primary">Save</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

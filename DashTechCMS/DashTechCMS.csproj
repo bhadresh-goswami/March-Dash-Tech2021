@@ -224,6 +224,9 @@
     </Compile>
     <Compile Include="Models\Email\SMTPEmailSendingModel.cs" />
     <Compile Include="Models\ExpertCV\ExpertCVModel.cs" />
+    <Compile Include="Models\FollowUpMaster.cs">
+      <DependentUpon>dbDTRS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\InterviewDetail.cs">
       <DependentUpon>dbDTRS.tt</DependentUpon>
     </Compile>
@@ -261,6 +264,7 @@
     <Compile Include="Models\ReportSubmissionDetail.cs">
       <DependentUpon>dbDTRS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Reports\CandidateDetailBoardModel.cs" />
     <Compile Include="Models\Reports\CandidateMarketingModel.cs" />
     <Compile Include="Models\Reports\CandidateTimeLineModel.cs" />
     <Compile Include="Models\Reports\DailyReportModel.cs" />
@@ -279,6 +283,8 @@
     <Compile Include="Models\SessionListDetail.cs">
       <DependentUpon>dbDTRS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SQLObject\CommonHelperClass.cs" />
+    <Compile Include="Models\SQLObject\ConnectionDB.cs" />
     <Compile Include="Models\SQLObject\SQLObjects.cs" />
     <Compile Include="Models\SubmissionDetail.cs">
       <DependentUpon>dbDTRS.tt</DependentUpon>
@@ -6629,6 +6635,16 @@
     <Content Include="Content\dist\js\demo.js" />
     <Content Include="Content\dist\js\pages\dashboard.js" />
     <Content Include="Content\dist\js\pages\dashboard2.js" />
+    <Content Include="Content\images\details.png" />
+    <Content Include="Content\images\done.png" />
+    <Content Include="Content\images\dropped.png" />
+    <Content Include="Content\images\hotspot.gif" />
+    <Content Include="Content\images\hotspot_red.gif" />
+    <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\images\na.png" />
+    <Content Include="Content\images\not.png" />
+    <Content Include="Content\images\running.png" />
+    <Content Include="Content\images\undone.png" />
     <Content Include="Content\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Content\plugins\bootstrap-slider\slider.css" />
     <Content Include="Content\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -7465,6 +7481,11 @@
     <Content Include="Areas\reports\Views\Sales\RefundedMonthly.cshtml" />
     <Content Include="Areas\expertcvcoach\Views\web.config" />
     <Content Include="Areas\expertcvcoach\Views\dashboard\Index.cshtml" />
+    <Content Include="Areas\reports\Views\CandidateTimeLine\GetTimeLine.cshtml" />
+    <Content Include="Areas\reports\Views\CandidateTimeLine\GetTimeLine2.cshtml" />
+    <Content Include="Areas\reports\Views\CandidateTimeLine\TimeLine.cshtml" />
+    <Content Include="Areas\reports\Views\CandidateTimeLine\JsonTimeLine.cshtml" />
+    <Content Include="Areas\reports\Views\CandidateTimeLine\TimeLineReport.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

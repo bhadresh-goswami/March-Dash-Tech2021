@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "TimeLineReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- DevExtreme themes -->
+<link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/20.2.5/css/dx.common.css">
+<link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/20.2.5/css/dx.light.css">
+
+<!-- DevExtreme library -->
+<script type="text/javascript" src="https://cdn3.devexpress.com/jslib/20.2.5/js/dx.all.js"></script>
+<!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/20.2.5/js/dx.web.js"></script> -->
+<!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/20.2.5/js/dx.viz.js"></script> -->
+<style>
+    .dx-datagrid {
+        font: 12px verdana;
+    }
+    #timeline {
+        height: 540px;
+    }
+
+    .options {
+        padding: 20px;
+        margin-top: 20px;
+        background-color: rgba(191, 191, 191, 0.15);
+    }
+
+    .caption {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .option {
+        margin-top: 10px;
+    }
+
+        .option > span {
+            margin-right: 10px;
+        }
+
+        .option > .dx-selectbox {
+            display: inline-block;
+            vertical-align: middle;
+        }
+</style>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12" style="overflow:scroll">
+            <img src="~/Content/images/loader.gif" id="loading" />
+            <div id="timeline"></div>
+        </div>
+    </div>
+</section>
+<script>
+    $(function () {
+        $("#loading").show();
+        $.getJSON("@Url.Action("TimelineJsonData","CandidateTimeLine",new { @area = "reports"})", null, function (data) {
+            var candidates = data;
+            $("#timeline").dxDataGrid({
+                dataSource: candidates, columnsAutoWidth: false, showColumnLines: true,
+                showRowLines: true,
+                rowAlternationEnabled: true,
+                showBorders: true
+                , filterRow: {
+                    visible: true,
+                    applyFilter: "auto"
+                },
+
+                searchPanel: {
+                    visible: true,
+                    width: 240,
+                    placeholder: "Search..."
+                },
+                headerFilter: {
+                    visible: true
+                },
+                columns: ["LocationName", {
+                    dataField: "CandidateName",
+                    caption: "Candidate Name",
+                    width: 100
+                }, {
+                    dataField: "OnBoardingDate",
+                    caption: "Enrolled Date",
+                    width: 100
+                }, {
+                        dataField: "SalesAssocaites",
+                        caption: "Sales Assocaite",
+                    width:150
+                },{
+                    dataField:"ExpertCVStatus", cellTemplate: function (container, options) {
+                        $("<div>")
+                            .append(options.value)
+                                .appendTo(container);
+                        },
+                    caption: "CV Status",
+                    width: 200
+                    }, {
+                        dataField: "CurrentStatus", cellTemplate: function (container, options) {
+                            $("<div>")
+                                .append(options.value)
+                                .appendTo(container);
+                        },
+                        caption: "Current Status",
+                        width: 200
+                    }, {
+                        dataField: "MarketingStatus", cellTemplate: function (container, options) {
+                            $("<div>")
+                                .append(options.value)
+                                .appendTo(container);
+                        },
+                        caption: "Marketing Status",
+                        width: 200
+                    }, {
+                        dataField: "TrainingStatus", cellTemplate: function (container, options) {
+                            $("<div>")
+                                .append(options.value)
+                                .appendTo(container);
+                        },
+                        caption: "Training Status",
+                        width: 200
+                    }, {
+                        dataField: "PODate", cellTemplate: function (container, options) {
+                            $("<div>")
+                                .append(options.value)
+                                .appendTo(container);
+                        },
+                        caption: "PO Date",
+                        width: 100
+                    }, {
+                        dataField: "TechnicalStatus", cellTemplate: function (container, options) {
+                            $("<div>")
+                                .append($("<img>", { "src": options.value, width:25px }))
+                                .appendTo(container);
+                        },
+                        caption: "Technical Status",
+                        width: 100
+                    }, {
+                        dataField: "OnboardingStatus", cellTemplate: function (container, options) {
+                            $("<div>")
+                                .append($("<img>", { "src": options.value, width: 25px}))
+                                .appendTo(container);
+                        },
+                        caption: "Onboarding Status",
+                        width: 100
+                    }, {
+                        dataField: "AccountStatus", cellTemplate: function (container, options) {
+                            $("<div>")
+                                .append($("<img>", { "src": options.value, width: 25px}))
+                                .appendTo(container);
+                        },
+                        caption: "Account Status",
+                        width: 100
+                    }, {
+                        dataField: "DisputeStatus", cellTemplate: function (container, options) {
+                            $("<div>")
+                                .append($("<img>", { "src": options.value, width: 25px}))
+                                .appendTo(container);
+                        },
+                        caption: "Dispute Status",
+                        width: 100
+                    }, {
+                    caption:"Branch Name",dataField:"LocationName", groupIndex:0
+                }
+                ]
+
+            });
+            $("#loading").hide();
+        });
+
+
+    })
+</script>

@@ -1,0 +1,173 @@
+﻿@model IEnumerable<DashTechCMS.Models.Reports.CandidateDetailBoardModel>
+
+@{
+    ViewBag.Title = "GetTimeLine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12" style="overflow:scroll">
+
+            <table class="table table-hover compact" id="dataTableTimeLine">
+                <thead>
+                    <tr>
+                        <th>
+                            CurrentStatus
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>Location</th>
+                        <th>Onboarding Date</th>
+                        <th>OnboardingBy</th>
+                        <th>
+                            ResumeProcessStarted
+                        </th>
+                        <th>
+                            CVBuildBy
+                        </th>
+                        <th>
+                            ResumeProcessEnded
+                        </th>
+                        <th>
+                            RUCDate
+                        </th>
+                        <th>
+                            RUC By
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TrainingStartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TrainingEndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TrainerName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MarketingStartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RecruiterName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PODate)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span>@item.CurrentStatus</span>
+                                @if (item.CurrentStatus.ToLower().Contains("dropped") || item.CurrentStatus.ToLower().Contains("refund"))
+                                {
+                                    <img src="~/Content/images/dropped.png" width="30px" />
+                                }
+                                @if (item.CurrentStatus.ToLower().Contains("placed"))
+                                {
+                                    <img src="~/Content/images/done.png" width="30px" />
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CandidateName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocationName)
+                            </td>
+                            <td>
+                                @item.OnBoardingDate.ToString("yyyy-MM-dd")
+                            </td>
+                            <td>
+                                @item.SalesAssocaites
+                            </td>
+                            <td>
+                                @if (item.ResumeProcessStarted != null)
+                                {
+                                    DateTime dt = (DateTime)item.ResumeProcessStarted;
+                                    <span>@dt.ToString("yyyy-MM-dd, hh:mm tt")</span>
+                                }
+                                @if (item.CurrentStatus.Contains("Resume") && !item.CurrentStatus.Contains("Understanding"))
+                                {
+                                    <img src="~/Content/images/running.png" width="25px" />
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExpertCVMakerName)
+                            </td>
+                            <td>
+                                @if (item.ResumeProcessEnded != null)
+                                {
+                                    DateTime dt = (DateTime)item.ResumeProcessEnded;
+                                    <span>@dt.ToString("yyyy-MM-dd")</span>
+                                }
+
+                            </td>
+                            <td>
+                                @if (item.ResumeUnderstandingDate != null)
+                                {
+                                    DateTime dt = (DateTime)item.ResumeUnderstandingDate;
+                                    <span>@dt.ToString("yyyy-MM-dd")</span>
+                                    <img src="~/Content/images/done.png" width="25px" />
+                                }
+
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ResumeUnderstandingBy)
+                            </td>
+                            <td>
+
+                                @if (item.TrainingStartDate != null)
+                                {
+                                    DateTime dt = (DateTime)item.TrainingStartDate;
+                                    <span>@dt.ToString("yyyy-MM-dd")</span>
+                                }
+                            </td>
+                            <td>
+
+                                @if (item.TrainingEndDate != null)
+                                {
+                                    DateTime dt = (DateTime)item.TrainingEndDate;
+                                    <span>@dt.ToString("yyyy-MM-dd")</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrainerName)
+                            </td>
+                            <td>
+
+                                @if (item.MarketingStartDate != null)
+                                {
+                                    DateTime dt = (DateTime)item.MarketingStartDate;
+                                    <span>@dt.ToString("yyyy-MM-dd")</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RecruiterName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PODate)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#dataTableTimeLine').DataTable({
+            dom: 'Bfrtip', "order": [[3, "desc"]], pageLength: 100,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ], fixedHeader: true
+        });
+    });
+</script>

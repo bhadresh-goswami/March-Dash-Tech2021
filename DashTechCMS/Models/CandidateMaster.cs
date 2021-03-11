@@ -19,11 +19,12 @@ namespace DashTechCMS.Models
         {
             this.CandidateTechnicalExpertDetails = new HashSet<CandidateTechnicalExpertDetail>();
             this.MarketingRevenueDetails = new HashSet<MarketingRevenueDetail>();
+            this.RequestMasters = new HashSet<RequestMaster>();
             this.CandidateMarketingDetails = new HashSet<CandidateMarketingDetail>();
             this.CandidateTimeLines = new HashSet<CandidateTimeLine>();
             this.CommentDetails = new HashSet<CommentDetail>();
+            this.FollowUpMasters = new HashSet<FollowUpMaster>();
             this.RecurringMasters = new HashSet<RecurringMaster>();
-            this.RequestMasters = new HashSet<RequestMaster>();
         }
     
         public int CandidateId { get; set; }
@@ -48,6 +49,8 @@ namespace DashTechCMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MarketingRevenueDetail> MarketingRevenueDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequestMaster> RequestMasters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CandidateMarketingDetail> CandidateMarketingDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CandidateTimeLine> CandidateTimeLines { get; set; }
@@ -58,8 +61,8 @@ namespace DashTechCMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommentDetail> CommentDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecurringMaster> RecurringMasters { get; set; }
+        public virtual ICollection<FollowUpMaster> FollowUpMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequestMaster> RequestMasters { get; set; }
+        public virtual ICollection<RecurringMaster> RecurringMasters { get; set; }
     }
 }
