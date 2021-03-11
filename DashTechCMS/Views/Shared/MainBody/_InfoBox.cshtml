@@ -1,0 +1,95 @@
+﻿@using DashTechCMS.Models.Admin
+@{ 
+    InfoBoxModelLogic infoBoxModelLogic = new InfoBoxModelLogic();
+    infoBoxModelLogic.GetDetails();
+
+    TempData["currentRevenue"] = infoBoxModelLogic.infoBox.TotalRevenue;
+    TempData["todayRevenue"] = infoBoxModelLogic.infoBox.TodaysRevenue;
+    TempData["monthRevenue"] = infoBoxModelLogic.infoBox.CurrentMonthRevenue;
+    TempData["totalCandidate"] = infoBoxModelLogic.infoBox.TotalCandidate;
+    TempData["CurrentMonthPlacement"] = infoBoxModelLogic.infoBox.CurrentMonthPlacement;
+    TempData["TodaysPlacements"] = infoBoxModelLogic.infoBox.TodaysPlacements;
+
+}
+
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-dollar"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Current Revenue</span>
+                <span class="info-box-number"><span style="font-size:25px">$ @TempData["currentRevenue"].ToString()</span></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-dollar"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Revenue <br />(@DateTime.Now.Date.ToString("MMM-yyyy"))</span>
+                <span class="info-box-number" id="currentMonthRevenue">$ @TempData["monthRevenue"].ToString()</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Today's Revenue</span>
+                <span class="info-box-number">$ @TempData["todayRevenue"].ToString()</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-thumbs-up"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Total Candidates</span>
+                <span class="info-box-number"> @TempData["totalCandidate"].ToString()</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people-outline"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Current (@DateTime.Now.Date.ToString("MMM-yyyy")) PO</span>
+                <span class="info-box-number"> @TempData["CurrentMonthPlacement"].ToString()</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="ion ion-ios-people-outline"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Today's PO</span>
+                <span class="info-box-number">@TempData["TodaysPlacements"].ToString()</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+</div>

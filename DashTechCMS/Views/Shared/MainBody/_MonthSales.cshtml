@@ -1,0 +1,31 @@
+﻿@{
+    var data = new DashTechCMS.Models.Admin.MonthsOrderSalesModelLogic();
+    data.GetDetails();
+}
+<div class="table-responsive">
+    <table class="table no-margin">
+        <thead>
+            <tr>
+                <th>Candidate Name</th>
+                <th>Technology</th>
+                <th>Date</th>
+                <th>Paid Amount</th>
+                <th>Sales Associates</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in data.list)
+            {
+                <tr>
+                    <td>@item.CandidateName</td>
+                    <td>@item.Technology</td>
+                    <td>@item.Date</td>
+                    <td>
+                        @item.PaidAmount
+                    </td>
+                    <td>@item.SalesAssociateName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

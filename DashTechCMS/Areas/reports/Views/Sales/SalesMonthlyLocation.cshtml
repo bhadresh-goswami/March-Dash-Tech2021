@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DashTechCMS.Models.Reports.Sales_Monthly_Locaiton>
+
+@{
+    ViewBag.Title = "Sales Report (Month,Location)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <h3>@ViewBag.title</h3>
+        <div class="col-md-12">
+
+            <table class="table table-responsive compact nowrap" id="dataTableCommon">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Month)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Location)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Month)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            $ @item.Amount
+                        </td>
+                    </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $('#dataTableCommon').DataTable({
+            "lengthMenu": [[50, 150, 250, -1], [50, 150, 250, "All"]],
+            dom: 'Blfrtip',
+            responsive: true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

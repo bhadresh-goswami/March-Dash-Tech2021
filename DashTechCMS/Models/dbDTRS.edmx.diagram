@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4298ab22e7194f88963150a81dafa910" Name="Diagram1">
+        <EntityTypeShape EntityType="dbDTRS.BatchSessionDetail" Width="1.5" PointX="10.5" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.CandidateBatchDetail" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.CandidateTechnicalExpertDetail" Width="1.5" PointX="5.25" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.MarketingRevenueDetail" Width="1.5" PointX="8.25" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.OnBoardingMaster" Width="1.5" PointX="7.5" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.OnBoardingPayment" Width="1.5" PointX="9.75" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.PODetail" Width="1.5" PointX="5.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.ReportSubmissionDetail" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.SessionListDetail" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.SubmissionMaster" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.TaskCategoryMaster" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.TaskManageMaster" Width="1.5" PointX="7.5" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.TaskStatusDetail" Width="1.5" PointX="9.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.CandidateAssign" Width="1.5" PointX="15.75" PointY="37.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.CandidateMarketingDetail" Width="1.5" PointX="13.5" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.CandidateMaster" Width="1.5" PointX="11.25" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.CandidateTimeLine" Width="1.5" PointX="13.5" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.CommentDetail" Width="1.5" PointX="13.5" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.DepartmentMaster" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.InterviewDetail" Width="1.5" PointX="20.25" PointY="37.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.InterviewMode" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.JobPortalMaster" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.LeadMaster" Width="1.5" PointX="5.25" PointY="50.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.LocationMaster" Width="1.5" PointX="0.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.RecurringMaster" Width="1.5" PointX="13.5" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.RecurringType" Width="1.5" PointX="9" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.RoleMaster" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.SalesServiceMaster" Width="1.5" PointX="9" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.SubmissionDetail" Width="1.5" PointX="18" PointY="37" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.TargetDetail" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.TaskMaster" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.TaskTitleMaster" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.TeamDetail" Width="1.5" PointX="5.25" PointY="55.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.TechnologyMaster" Width="1.5" PointX="9" PointY="36.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.UserAccountDetail" Width="1.5" PointX="3" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbDTRS.VisaTitleMaster" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="dbDTRS.FK__BatchSess__RefCT__29221CFB" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__BatchSess__RefSe__2A164134" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefBa__236943A5" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefTe__1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefAs__2180FB33" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefAs__22751F6C" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__TaskManag__RefCT__2FCF1A8A" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Marketing__RefCa__367C1819" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Marketing__RefUs__3587F3E0" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__OnBoardin__RefCa__17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__OnBoardin__RefOB__1AD3FDA4" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__PODetails__RefSa__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__SessionLi__RefTe__2645B050" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__TaskManag__RefTa__2EDAF651" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__TaskStatu__RefTM__32AB8735" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__refMa__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefTe__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Submissio__RefAs__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefCa__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefCa__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefRe__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefSa__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__RefSe__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__Techn__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__CommentDe__RefCa__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Recurring__RefCa__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Candidate__Chang__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__Interview__RefSu__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__LeadMaste__LeadB__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__UserAccou__RefLo__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__UserAccou__RefRo__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__TeamDetai__Membe__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__TeamDetai__TeamL__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="dbDTRS.FK__TeamDetai__TeamM__6754599E" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbDTRS.RequestMaster" Width="1.5" PointX="16.5" PointY="24.25" />
+        <AssociationConnector Association="dbDTRS.FK__RequestMa__Candi__6C190EBB" />
+        <AssociationConnector Association="dbDTRS.FK__RequestMa__ReqFr__6D0D32F4" />
+        <AssociationConnector Association="dbDTRS.FK__RequestMa__ReqTo__6E01572D" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

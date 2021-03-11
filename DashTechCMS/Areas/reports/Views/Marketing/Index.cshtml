@@ -1,0 +1,150 @@
+﻿@model IEnumerable<DashTechCMS.Models.Reports.CandidateMarketingModel>
+
+@{
+    ViewBag.Title = "Candidate Marketing Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>@ViewBag.title</h2>
+
+            <div class="col-lg-6">
+                <form action="@Url.Action("index","marketing",new { @area = "reports"})" method="get">
+                    <table class="table table-striped">
+                        <tr>
+                            <td colspan="3">Filter By Date</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="date" name="stDate" id="stDate" class="form-control" required />
+                            </td>
+                            <td align="right">
+                                <input type="date" name="endDate" id="endDate" class="form-control" required />
+                            </td>
+                            <td align="right">
+                                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> Search</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <script>
+                @{
+                    DateTime sdt = ViewBag.sdt;
+                    DateTime edt = ViewBag.edt;
+                }
+                $("#stDate").val("@sdt.Date.ToString("yyyy-MM-dd")");
+                $("#endDate").val("@edt.Date.ToString("yyyy-MM-dd")");
+                </script>
+            </div>
+        </div>
+        <div class="col-md-12" style="overflow:scroll">
+
+            <table class="table  compact nowrap" id="dataTableMarketing">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CandidateName)
+                        </th>                       
+                        <th>
+                            @Html.DisplayNameFor(model => model.RecruiterName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MarketingTeamLeadName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MarketingTeamManagerName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MarketingStartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PODate)
+                        </th>
+                      
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalDaysResumeProcessDone)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalDaysPOGet)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalSubmissions)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalInterviews)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalInterviewSupports)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.KPIAccuracy)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CandidateName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RecruiterName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MarketingTeamLeadName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MarketingTeamManagerName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MarketingStartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PODate)
+                            </td>
+                           
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalDaysResumeProcessDone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalDaysPOGet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalSubmissions)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalInterviews)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalInterviewSupports)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.KPIAccuracy)
+                            </td>
+                           
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $('#dataTableMarketing').DataTable({
+          
+            "order": [[3, "desc"]],
+            "lengthMenu": [[50, 150, 250, -1], [50, 150, 250, "All"]],
+            dom: 'Blfrtip',
+            responsive: true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

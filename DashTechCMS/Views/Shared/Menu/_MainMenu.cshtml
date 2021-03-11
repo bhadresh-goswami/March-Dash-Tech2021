@@ -1,0 +1,24 @@
+﻿@using DashTechCMS.Models.User
+@{
+
+    string userRole = System.Configuration.ConfigurationManager.AppSettings["userRole"].ToString();
+
+    UserInfoModel userInfo = Session["userInfo"] as UserInfoModel;
+
+}
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header"><h5 style="text-transform:capitalize;font-weight:bolder;color:white">@userRole Workspace</h5></li>
+    <li class="">
+        <a href="@userInfo.defaultUrl">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        </a>
+    </li>
+    @switch (userInfo.UserRole)
+    {
+        case "admin":
+            @Html.Partial("Menu/_AdminMenu")
+            break;
+        default:
+            break;
+    }
+</ul>

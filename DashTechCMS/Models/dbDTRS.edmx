@@ -1,0 +1,2973 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbDTRS.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BatchSessionDetails">
+          <Key>
+            <PropertyRef Name="BSId" />
+          </Key>
+          <Property Name="BSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefCTId" Type="int" Nullable="false" />
+          <Property Name="RefSessionId" Type="int" Nullable="false" />
+          <Property Name="SessionDate" Type="date" Nullable="false" />
+          <Property Name="SessionCompletedDate" Type="date" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OtherDetails" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CandidateBatchDetails">
+          <Key>
+            <PropertyRef Name="BatchId" />
+          </Key>
+          <Property Name="BatchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BatchName" Type="varchar(max)" Nullable="false" />
+          <Property Name="RefTechId" Type="int" Nullable="false" />
+          <Property Name="BatchStartDate" Type="date" Nullable="false" />
+          <Property Name="BatchEndDate" Type="date" Nullable="false" />
+          <Property Name="BatchStartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="BatchEndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TotalSession" Type="int" Nullable="false" />
+          <Property Name="CompletedSession" Type="int" Nullable="false" />
+          <Property Name="BatchStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar(max)" Nullable="false" />
+          <Property Name="EditedBy" Type="varchar(max)" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="EditedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="CandidateTechnicalExpertDetails">
+          <Key>
+            <PropertyRef Name="CTId" />
+          </Key>
+          <Property Name="CTId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CTAssignDate" Type="date" Nullable="false" />
+          <Property Name="CTReassigned" Type="bit" Nullable="false" />
+          <Property Name="CTAssingedRemarks" Type="varchar(max)" />
+          <Property Name="CTReassignedRemarks" Type="varchar(max)" />
+          <Property Name="RefAssignedCandidateId" Type="int" Nullable="false" />
+          <Property Name="RefAssignedExpertId" Type="int" Nullable="false" />
+          <Property Name="CTAssignIsEnabled" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="AssignedBy" Type="varchar(max)" Nullable="false" />
+          <Property Name="RefBatchId" Type="int" />
+        </EntityType>
+        <EntityType Name="MarketingRevenueDetails">
+          <Key>
+            <PropertyRef Name="MRId" />
+          </Key>
+          <Property Name="MRId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RevenueDate" Type="date" Nullable="false" />
+          <Property Name="PaidIn" Type="varchar(max)" Nullable="false" />
+          <Property Name="RefUserId" Type="int" Nullable="false" />
+          <Property Name="IsRevenueVerified" Type="bit" Nullable="false" />
+          <Property Name="RefCandidateId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Remarks" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OnBoardingMaster">
+          <Key>
+            <PropertyRef Name="OBId" />
+          </Key>
+          <Property Name="OBId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OBDate" Type="date" Nullable="false" />
+          <Property Name="EntryDate" Type="date" />
+          <Property Name="UpdateDate" Type="date" />
+          <Property Name="InstallmentDuration" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="InsertedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="RefCandidatePOId" Type="int" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="UpFrontAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Remarks" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="OnBoardingPayment">
+          <Key>
+            <PropertyRef Name="OBPId" />
+          </Key>
+          <Property Name="OBPId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OBPAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="OBPStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="OBPDate" Type="date" Nullable="false" />
+          <Property Name="OBPClearDate" Type="date" />
+          <Property Name="OBPReceivedIn" Type="varchar(max)" />
+          <Property Name="UpdatedBy" Type="varchar(max)" />
+          <Property Name="RefOBId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PODetails">
+          <Key>
+            <PropertyRef Name="POId" />
+          </Key>
+          <Property Name="POId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateName" Type="varchar(max)" Nullable="false" />
+          <Property Name="RefOfCandidate" Type="varchar(max)" Nullable="false" />
+          <Property Name="RefSaleId" Type="int" Nullable="false" />
+          <Property Name="JobType" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AppliedPosition" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="InterviewSupport" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="JobLocation" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EndClient" Type="varchar(max)" Nullable="false" />
+          <Property Name="VendorDetails" Type="varchar(max)" Nullable="false" />
+          <Property Name="RecruiterName" Type="varchar(max)" Nullable="false" />
+          <Property Name="TeamLeadName" Type="varchar(max)" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="SignUpDate" Type="date" Nullable="false" />
+          <Property Name="TrainerName" Type="varchar(max)" />
+          <Property Name="TrainingStartDate" Type="date" />
+          <Property Name="TrainingEndDate" Type="date" />
+          <Property Name="MarketingStartDate" Type="date" Nullable="false" />
+          <Property Name="MarketingEndDate" Type="date" Nullable="false" />
+          <Property Name="AgreementPercentage" Type="int" Nullable="false" />
+          <Property Name="AgreementMonths" Type="int" Nullable="false" />
+          <Property Name="JobDescription" Type="varchar(max)" />
+          <Property Name="OtherDetails" Type="varchar(max)" />
+          <Property Name="AddBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EnteryDate" Type="date" Nullable="false" />
+          <Property Name="UpdateDate" Type="date" />
+          <Property Name="UpdateBy" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="PODate" Type="date" Nullable="false" />
+          <Property Name="JoiningDate" Type="date" />
+        </EntityType>
+        <EntityType Name="ReportSubmissionDetails">
+          <Key>
+            <PropertyRef Name="ReportSId" />
+          </Key>
+          <Property Name="ReportSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="CandidateName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TeamLeadName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RecruiterName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Technology" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="VisaStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CandidateEmailId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CandidateMobileNumber" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TotalSubmission" Type="int" Nullable="false" />
+          <Property Name="TotalInterview" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="RequestMaster">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestDate" Type="date" Nullable="false" />
+          <Property Name="RequestTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="ReqFrom" Type="int" Nullable="false" />
+          <Property Name="ReqTo" Type="int" Nullable="false" />
+          <Property Name="Response" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Closed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SessionListDetails">
+          <Key>
+            <PropertyRef Name="SessionId" />
+          </Key>
+          <Property Name="SessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionNo" Type="int" Nullable="false" />
+          <Property Name="RefTechId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="MinDuration" Type="int" Nullable="false" />
+          <Property Name="PDFMaterialUrl" Type="varchar(max)" Nullable="false" />
+          <Property Name="AssignmentLink" Type="varchar(max)" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EditedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="EditedDate" Type="date" />
+          <Property Name="IsVerified" Type="bit" Nullable="false" />
+          <Property Name="VerifiedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="VerifiedDate" Type="date" Nullable="false" />
+          <Property Name="TopicName" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="SubmissionMaster">
+          <Key>
+            <PropertyRef Name="SubmissionId" />
+          </Key>
+          <Property Name="SubmissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubmissionBy" Type="varchar" MaxLength="100" />
+          <Property Name="SubmissionDate" Type="date" Nullable="false" />
+          <Property Name="CandidateName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="VendorName" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="VendorCompanyName" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="VendorContactNumber" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="JobPortal" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="JobDescription" Type="varchar(max)" />
+          <Property Name="InterviewDate" Type="date" />
+          <Property Name="SupportAssignedTo" Type="varchar" MaxLength="300" />
+          <Property Name="InterviewStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="InterviewFeedback" Type="varchar(max)" Nullable="false" />
+          <Property Name="CandidateId" Type="int" />
+          <Property Name="InterviewTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskCategoryMaster">
+          <Key>
+            <PropertyRef Name="TaskCatId" />
+          </Key>
+          <Property Name="TaskCatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskCatTitle" Type="varchar(max)" Nullable="false" />
+          <Property Name="TCIsEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskManageMaster">
+          <Key>
+            <PropertyRef Name="TMId" />
+          </Key>
+          <Property Name="TMId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefTaskCatId" Type="int" Nullable="false" />
+          <Property Name="TaskDate" Type="date" Nullable="false" />
+          <Property Name="TaskStartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TaskEndTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TaskStatus" Type="varchar(max)" Nullable="false" />
+          <Property Name="RefCTId" Type="int" Nullable="false" />
+          <Property Name="TotalMin" Type="int" Nullable="false" />
+          <Property Name="TaskRemarks" Type="varchar(max)" />
+          <Property Name="TeamLeadFeedback" Type="varchar(max)" Nullable="false" />
+          <Property Name="FeedbackDate" Type="date" />
+          <Property Name="FeedbackTime" Type="time" Precision="7" />
+          <Property Name="FeedbackBy" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TaskStatusDetails">
+          <Key>
+            <PropertyRef Name="TSId" />
+          </Key>
+          <Property Name="TSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefTMId" Type="int" Nullable="false" />
+          <Property Name="CurrentStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StatusTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="StatusDate" Type="date" Nullable="false" />
+          <Property Name="StatusRemarks" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CandidateAssign">
+          <Key>
+            <PropertyRef Name="AssignedId" />
+          </Key>
+          <Property Name="AssignedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefTeamId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="refMarketingId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CandidateMarketingDetails">
+          <Key>
+            <PropertyRef Name="MarketingId" />
+          </Key>
+          <Property Name="MarketingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefCandidateId" Type="int" Nullable="false" />
+          <Property Name="MarketingEmailId" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="MarketingContactNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="OriginalResume" Type="varchar" MaxLength="100" />
+          <Property Name="MarketingResume" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="InsertedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OtherRemarks" Type="varchar" MaxLength="500" />
+          <Property Name="MarketingStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LocationConcern" Type="bit" Nullable="false" />
+          <Property Name="RequiredLocationList" Type="varchar" MaxLength="1000" />
+          <Property Name="EntryDate" Type="date" />
+        </EntityType>
+        <EntityType Name="CandidateMaster">
+          <Key>
+            <PropertyRef Name="CandidateId" />
+          </Key>
+          <Property Name="CandidateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RefSalesAssociate" Type="int" />
+          <Property Name="RefRecurringTypeId" Type="int" Nullable="false" />
+          <Property Name="RefServiceId" Type="int" Nullable="false" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+          <Property Name="PaidAmount" Type="money" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="PaymentStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CandidateStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="300" />
+          <Property Name="MarketingStartDate" Type="date" />
+          <Property Name="VisaStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TechnologyId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CandidateTimeLine">
+          <Key>
+            <PropertyRef Name="TimeLineId" />
+          </Key>
+          <Property Name="TimeLineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefCandidateId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="ChangedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommentDetails">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="CommentBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RefCandidateId" Type="int" Nullable="false" />
+          <Property Name="CommentText" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DepartmentMaster">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InterviewDetails">
+          <Key>
+            <PropertyRef Name="InteviewId" />
+          </Key>
+          <Property Name="InteviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefSumissionId" Type="int" />
+          <Property Name="DateOfInterview" Type="date" Nullable="false" />
+          <Property Name="TimeOfInterview" Type="time" Precision="7" Nullable="false" />
+          <Property Name="RefModeOfInterview" Type="int" Nullable="false" />
+          <Property Name="RoundOfInterv" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="InterviewSupport" Type="bit" />
+          <Property Name="InterviewSupportName" Type="varchar" MaxLength="100" />
+          <Property Name="Feedback" Type="varchar(max)" />
+          <Property Name="JobDescription" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="InterviewDetails" Type="varchar(max)" />
+          <Property Name="InterviewJoiningDetails" Type="varchar(max)" />
+          <Property Name="InterviewSupportFeedback" Type="varchar" MaxLength="1000" />
+          <Property Name="PreviousInterview" Type="int" />
+        </EntityType>
+        <EntityType Name="InterviewMode">
+          <Key>
+            <PropertyRef Name="ModeId" />
+          </Key>
+          <Property Name="ModeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModeOfInterviewTitle" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="JobPortalMaster">
+          <Key>
+            <PropertyRef Name="PortalId" />
+          </Key>
+          <Property Name="PortalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PortalTitle" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeadMaster">
+          <Key>
+            <PropertyRef Name="Lid" />
+          </Key>
+          <Property Name="Lid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeadDate" Type="date" Nullable="false" />
+          <Property Name="LeadBy" Type="int" Nullable="false" />
+          <Property Name="LeadType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LinkedInURL" Type="varchar(max)" Nullable="false" />
+          <Property Name="CandidateName" Type="varchar(max)" Nullable="false" />
+          <Property Name="CandidateNumber" Type="varchar(max)" Nullable="false" />
+          <Property Name="LinkedInEmailid" Type="varchar(max)" Nullable="false" />
+          <Property Name="CandidateLocation" Type="varchar(max)" Nullable="false" />
+          <Property Name="TechnologyName" Type="varchar(max)" />
+          <Property Name="AssignedToSalesAssociate" Type="varchar(max)" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="Feedback" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="LocationMaster">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="RecurringMaster">
+          <Key>
+            <PropertyRef Name="RecurringId" />
+          </Key>
+          <Property Name="RecurringId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DueDate" Type="date" Nullable="false" />
+          <Property Name="PaidDate" Type="date" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="RefCandidateId" Type="int" Nullable="false" />
+          <Property Name="ReceivedIn" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SendReminderEmail" Type="bit" />
+          <Property Name="PaymentStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="remarks" Type="varchar" MaxLength="400" />
+          <Property Name="InstallmentNumber" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RecurringType">
+          <Key>
+            <PropertyRef Name="RecurringTypeId" />
+          </Key>
+          <Property Name="RecurringTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecurringTitle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="Installment" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleTitle" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SalesServiceMaster">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubmissionDetails">
+          <Key>
+            <PropertyRef Name="SubmissionId" />
+          </Key>
+          <Property Name="SubmissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="VendorName" Type="varchar" MaxLength="200" />
+          <Property Name="VendorContactNumber" Type="varchar" MaxLength="20" />
+          <Property Name="VendorEmailId" Type="varchar" MaxLength="200" />
+          <Property Name="VendorCompanyName" Type="varchar" MaxLength="200" />
+          <Property Name="ClientName" Type="varchar" MaxLength="200" />
+          <Property Name="PerHourRate" Type="money" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="JobLocation" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="1000" />
+          <Property Name="RefAssignedId" Type="int" Nullable="false" />
+          <Property Name="FollowUpDate" Type="date" Nullable="false" />
+          <Property Name="StatusOfSubmission" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="JobPortal" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TargetDetails">
+          <Key>
+            <PropertyRef Name="TargetId" />
+          </Key>
+          <Property Name="TargetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Revenue" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PO" Type="int" Nullable="false" />
+          <Property Name="Lead" Type="int" Nullable="false" />
+          <Property Name="DailyCall" Type="int" Nullable="false" />
+          <Property Name="Candidate" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskMaster">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskTitleId" Type="int" />
+          <Property Name="TaskDetails" Type="varchar(max)" />
+          <Property Name="AssignBy" Type="varchar" MaxLength="50" />
+          <Property Name="AssignTo" Type="varchar" MaxLength="50" />
+          <Property Name="AssignDate" Type="datetime" />
+          <Property Name="AssignTime" Type="time" Precision="7" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="EndTime" Type="time" Precision="7" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="Feedback" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TaskTitleMaster">
+          <Key>
+            <PropertyRef Name="TaskTitleID" />
+          </Key>
+          <Property Name="TaskTitleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskName" Type="varchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
+          <Property Name="CDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TeamDetails">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Member" Type="int" Nullable="false" />
+          <Property Name="TeamLead" Type="int" Nullable="false" />
+          <Property Name="TeamManager" Type="int" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsEnabledTeam" Type="bit" />
+        </EntityType>
+        <EntityType Name="TechnologyMaster">
+          <Key>
+            <PropertyRef Name="TechId" />
+          </Key>
+          <Property Name="TechId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechTitle" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAccountDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RocketName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RefLocationId" Type="int" />
+          <Property Name="RefRoleId" Type="int" />
+          <Property Name="UserImageUrl" Type="varchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="LastLogin" Type="date" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="100" />
+          <Property Name="JoiningDate" Type="date" />
+        </EntityType>
+        <EntityType Name="VisaTitleMaster">
+          <Key>
+            <PropertyRef Name="VisaId" />
+          </Key>
+          <Property Name="VisaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VisaTitle" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BatchSess__RefCT__29221CFB">
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetails" Multiplicity="1" />
+          <End Role="BatchSessionDetails" Type="Self.BatchSessionDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="CTId" />
+            </Principal>
+            <Dependent Role="BatchSessionDetails">
+              <PropertyRef Name="RefCTId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BatchSess__RefSe__2A164134">
+          <End Role="SessionListDetails" Type="Self.SessionListDetails" Multiplicity="1" />
+          <End Role="BatchSessionDetails" Type="Self.BatchSessionDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SessionListDetails">
+              <PropertyRef Name="SessionId" />
+            </Principal>
+            <Dependent Role="BatchSessionDetails">
+              <PropertyRef Name="RefSessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Chang__5EBF139D">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="CandidateTimeLine" Type="Self.CandidateTimeLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CandidateTimeLine">
+              <PropertyRef Name="ChangedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefAs__2180FB33">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="RefAssignedCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefAs__22751F6C">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="RefAssignedExpertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefBa__236943A5">
+          <End Role="CandidateBatchDetails" Type="Self.CandidateBatchDetails" Multiplicity="0..1" />
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateBatchDetails">
+              <PropertyRef Name="BatchId" />
+            </Principal>
+            <Dependent Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="RefBatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefCa__59FA5E80">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="CandidateMarketingDetails" Type="Self.CandidateMarketingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateMarketingDetails">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefCa__5FB337D6">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="CandidateTimeLine" Type="Self.CandidateTimeLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateTimeLine">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__refMa__5812160E">
+          <End Role="CandidateMarketingDetails" Type="Self.CandidateMarketingDetails" Multiplicity="1" />
+          <End Role="CandidateAssign" Type="Self.CandidateAssign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMarketingDetails">
+              <PropertyRef Name="MarketingId" />
+            </Principal>
+            <Dependent Role="CandidateAssign">
+              <PropertyRef Name="refMarketingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefRe__5AEE82B9">
+          <End Role="RecurringType" Type="Self.RecurringType" Multiplicity="1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecurringType">
+              <PropertyRef Name="RecurringTypeId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="RefRecurringTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefSa__5BE2A6F2">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="0..1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="RefSalesAssociate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefSe__5CD6CB2B">
+          <End Role="SalesServiceMaster" Type="Self.SalesServiceMaster" Multiplicity="1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesServiceMaster">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="RefServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefTe__1EA48E88">
+          <End Role="TechnologyMaster" Type="Self.TechnologyMaster" Multiplicity="1" />
+          <End Role="CandidateBatchDetails" Type="Self.CandidateBatchDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyMaster">
+              <PropertyRef Name="TechId" />
+            </Principal>
+            <Dependent Role="CandidateBatchDetails">
+              <PropertyRef Name="RefTechId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefTe__59063A47">
+          <End Role="TeamDetails" Type="Self.TeamDetails" Multiplicity="1" />
+          <End Role="CandidateAssign" Type="Self.CandidateAssign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TeamDetails">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="CandidateAssign">
+              <PropertyRef Name="RefTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Techn__5DCAEF64">
+          <End Role="TechnologyMaster" Type="Self.TechnologyMaster" Multiplicity="1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyMaster">
+              <PropertyRef Name="TechId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="TechnologyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentDe__RefCa__60A75C0F">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="CommentDetails" Type="Self.CommentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CommentDetails">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Interview__RefSu__619B8048">
+          <End Role="SubmissionDetails" Type="Self.SubmissionDetails" Multiplicity="0..1" />
+          <End Role="InterviewDetails" Type="Self.InterviewDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubmissionDetails">
+              <PropertyRef Name="SubmissionId" />
+            </Principal>
+            <Dependent Role="InterviewDetails">
+              <PropertyRef Name="RefSumissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeadMaste__LeadB__628FA481">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="LeadMaster" Type="Self.LeadMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="LeadMaster">
+              <PropertyRef Name="LeadBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Marketing__RefCa__367C1819">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="MarketingRevenueDetails" Type="Self.MarketingRevenueDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="MarketingRevenueDetails">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Marketing__RefUs__3587F3E0">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="MarketingRevenueDetails" Type="Self.MarketingRevenueDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MarketingRevenueDetails">
+              <PropertyRef Name="RefUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OnBoardin__RefCa__17036CC0">
+          <End Role="PODetails" Type="Self.PODetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OnBoardingMaster" Type="Self.OnBoardingMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PODetails">
+              <PropertyRef Name="POId" />
+            </Principal>
+            <Dependent Role="OnBoardingMaster">
+              <PropertyRef Name="RefCandidatePOId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OnBoardin__RefOB__1AD3FDA4">
+          <End Role="OnBoardingMaster" Type="Self.OnBoardingMaster" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OnBoardingPayment" Type="Self.OnBoardingPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnBoardingMaster">
+              <PropertyRef Name="OBId" />
+            </Principal>
+            <Dependent Role="OnBoardingPayment">
+              <PropertyRef Name="RefOBId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PODetails__RefSa__02FC7413">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="PODetails" Type="Self.PODetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PODetails">
+              <PropertyRef Name="RefSaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recurring__RefCa__6383C8BA">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="RecurringMaster" Type="Self.RecurringMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="RecurringMaster">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestMa__Candi__6C190EBB">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="0..1" />
+          <End Role="RequestMaster" Type="Self.RequestMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="RequestMaster">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestMa__ReqFr__6D0D32F4">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="RequestMaster" Type="Self.RequestMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RequestMaster">
+              <PropertyRef Name="ReqFrom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestMa__ReqTo__6E01572D">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="RequestMaster" Type="Self.RequestMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RequestMaster">
+              <PropertyRef Name="ReqTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SessionLi__RefTe__2645B050">
+          <End Role="TechnologyMaster" Type="Self.TechnologyMaster" Multiplicity="1" />
+          <End Role="SessionListDetails" Type="Self.SessionListDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyMaster">
+              <PropertyRef Name="TechId" />
+            </Principal>
+            <Dependent Role="SessionListDetails">
+              <PropertyRef Name="RefTechId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Submissio__RefAs__6477ECF3">
+          <End Role="CandidateAssign" Type="Self.CandidateAssign" Multiplicity="1" />
+          <End Role="SubmissionDetails" Type="Self.SubmissionDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateAssign">
+              <PropertyRef Name="AssignedId" />
+            </Principal>
+            <Dependent Role="SubmissionDetails">
+              <PropertyRef Name="RefAssignedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskManag__RefCT__2FCF1A8A">
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetails" Multiplicity="1" />
+          <End Role="TaskManageMaster" Type="Self.TaskManageMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="CTId" />
+            </Principal>
+            <Dependent Role="TaskManageMaster">
+              <PropertyRef Name="RefCTId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskManag__RefTa__2EDAF651">
+          <End Role="TaskCategoryMaster" Type="Self.TaskCategoryMaster" Multiplicity="1" />
+          <End Role="TaskManageMaster" Type="Self.TaskManageMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskCategoryMaster">
+              <PropertyRef Name="TaskCatId" />
+            </Principal>
+            <Dependent Role="TaskManageMaster">
+              <PropertyRef Name="RefTaskCatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskStatu__RefTM__32AB8735">
+          <End Role="TaskManageMaster" Type="Self.TaskManageMaster" Multiplicity="1" />
+          <End Role="TaskStatusDetails" Type="Self.TaskStatusDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskManageMaster">
+              <PropertyRef Name="TMId" />
+            </Principal>
+            <Dependent Role="TaskStatusDetails">
+              <PropertyRef Name="RefTMId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TeamDetai__Membe__656C112C">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="TeamDetails" Type="Self.TeamDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamDetails">
+              <PropertyRef Name="Member" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TeamDetai__TeamL__66603565">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="TeamDetails" Type="Self.TeamDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamDetails">
+              <PropertyRef Name="TeamLead" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TeamDetai__TeamM__6754599E">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="1" />
+          <End Role="TeamDetails" Type="Self.TeamDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamDetails">
+              <PropertyRef Name="TeamManager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAccou__RefLo__68487DD7">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="UserAccountDetails">
+              <PropertyRef Name="RefLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAccou__RefRo__1B0907CE">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1" />
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserAccountDetails">
+              <PropertyRef Name="RefRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbDTRSStoreContainer">
+          <EntitySet Name="BatchSessionDetails" EntityType="Self.BatchSessionDetails" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="CandidateBatchDetails" EntityType="Self.CandidateBatchDetails" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="CandidateTechnicalExpertDetails" EntityType="Self.CandidateTechnicalExpertDetails" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="MarketingRevenueDetails" EntityType="Self.MarketingRevenueDetails" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="OnBoardingMaster" EntityType="Self.OnBoardingMaster" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="OnBoardingPayment" EntityType="Self.OnBoardingPayment" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="PODetails" EntityType="Self.PODetails" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="ReportSubmissionDetails" EntityType="Self.ReportSubmissionDetails" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="RequestMaster" EntityType="Self.RequestMaster" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="SessionListDetails" EntityType="Self.SessionListDetails" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="SubmissionMaster" EntityType="Self.SubmissionMaster" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="TaskCategoryMaster" EntityType="Self.TaskCategoryMaster" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="TaskManageMaster" EntityType="Self.TaskManageMaster" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="TaskStatusDetails" EntityType="Self.TaskStatusDetails" Schema="dashrdku_demo" store:Type="Tables" />
+          <EntitySet Name="CandidateAssign" EntityType="Self.CandidateAssign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateMarketingDetails" EntityType="Self.CandidateMarketingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateMaster" EntityType="Self.CandidateMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateTimeLine" EntityType="Self.CandidateTimeLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommentDetails" EntityType="Self.CommentDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepartmentMaster" EntityType="Self.DepartmentMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InterviewDetails" EntityType="Self.InterviewDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InterviewMode" EntityType="Self.InterviewMode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobPortalMaster" EntityType="Self.JobPortalMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeadMaster" EntityType="Self.LeadMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocationMaster" EntityType="Self.LocationMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecurringMaster" EntityType="Self.RecurringMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecurringType" EntityType="Self.RecurringType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMaster" EntityType="Self.RoleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesServiceMaster" EntityType="Self.SalesServiceMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubmissionDetails" EntityType="Self.SubmissionDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TargetDetails" EntityType="Self.TargetDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskMaster" EntityType="Self.TaskMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskTitleMaster" EntityType="Self.TaskTitleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeamDetails" EntityType="Self.TeamDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TechnologyMaster" EntityType="Self.TechnologyMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccountDetails" EntityType="Self.UserAccountDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisaTitleMaster" EntityType="Self.VisaTitleMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BatchSess__RefCT__29221CFB" Association="Self.FK__BatchSess__RefCT__29221CFB">
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+            <End Role="BatchSessionDetails" EntitySet="BatchSessionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BatchSess__RefSe__2A164134" Association="Self.FK__BatchSess__RefSe__2A164134">
+            <End Role="SessionListDetails" EntitySet="SessionListDetails" />
+            <End Role="BatchSessionDetails" EntitySet="BatchSessionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Chang__5EBF139D" Association="Self.FK__Candidate__Chang__5EBF139D">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="CandidateTimeLine" EntitySet="CandidateTimeLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefAs__2180FB33" Association="Self.FK__Candidate__RefAs__2180FB33">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefAs__22751F6C" Association="Self.FK__Candidate__RefAs__22751F6C">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefBa__236943A5" Association="Self.FK__Candidate__RefBa__236943A5">
+            <End Role="CandidateBatchDetails" EntitySet="CandidateBatchDetails" />
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefCa__59FA5E80" Association="Self.FK__Candidate__RefCa__59FA5E80">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="CandidateMarketingDetails" EntitySet="CandidateMarketingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefCa__5FB337D6" Association="Self.FK__Candidate__RefCa__5FB337D6">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="CandidateTimeLine" EntitySet="CandidateTimeLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__refMa__5812160E" Association="Self.FK__Candidate__refMa__5812160E">
+            <End Role="CandidateMarketingDetails" EntitySet="CandidateMarketingDetails" />
+            <End Role="CandidateAssign" EntitySet="CandidateAssign" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefRe__5AEE82B9" Association="Self.FK__Candidate__RefRe__5AEE82B9">
+            <End Role="RecurringType" EntitySet="RecurringType" />
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefSa__5BE2A6F2" Association="Self.FK__Candidate__RefSa__5BE2A6F2">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefSe__5CD6CB2B" Association="Self.FK__Candidate__RefSe__5CD6CB2B">
+            <End Role="SalesServiceMaster" EntitySet="SalesServiceMaster" />
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefTe__1EA48E88" Association="Self.FK__Candidate__RefTe__1EA48E88">
+            <End Role="TechnologyMaster" EntitySet="TechnologyMaster" />
+            <End Role="CandidateBatchDetails" EntitySet="CandidateBatchDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefTe__59063A47" Association="Self.FK__Candidate__RefTe__59063A47">
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+            <End Role="CandidateAssign" EntitySet="CandidateAssign" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Techn__5DCAEF64" Association="Self.FK__Candidate__Techn__5DCAEF64">
+            <End Role="TechnologyMaster" EntitySet="TechnologyMaster" />
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentDe__RefCa__60A75C0F" Association="Self.FK__CommentDe__RefCa__60A75C0F">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="CommentDetails" EntitySet="CommentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Interview__RefSu__619B8048" Association="Self.FK__Interview__RefSu__619B8048">
+            <End Role="SubmissionDetails" EntitySet="SubmissionDetails" />
+            <End Role="InterviewDetails" EntitySet="InterviewDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeadMaste__LeadB__628FA481" Association="Self.FK__LeadMaste__LeadB__628FA481">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="LeadMaster" EntitySet="LeadMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Marketing__RefCa__367C1819" Association="Self.FK__Marketing__RefCa__367C1819">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="MarketingRevenueDetails" EntitySet="MarketingRevenueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Marketing__RefUs__3587F3E0" Association="Self.FK__Marketing__RefUs__3587F3E0">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="MarketingRevenueDetails" EntitySet="MarketingRevenueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OnBoardin__RefCa__17036CC0" Association="Self.FK__OnBoardin__RefCa__17036CC0">
+            <End Role="PODetails" EntitySet="PODetails" />
+            <End Role="OnBoardingMaster" EntitySet="OnBoardingMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OnBoardin__RefOB__1AD3FDA4" Association="Self.FK__OnBoardin__RefOB__1AD3FDA4">
+            <End Role="OnBoardingMaster" EntitySet="OnBoardingMaster" />
+            <End Role="OnBoardingPayment" EntitySet="OnBoardingPayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PODetails__RefSa__02FC7413" Association="Self.FK__PODetails__RefSa__02FC7413">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="PODetails" EntitySet="PODetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recurring__RefCa__6383C8BA" Association="Self.FK__Recurring__RefCa__6383C8BA">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="RecurringMaster" EntitySet="RecurringMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestMa__Candi__6C190EBB" Association="Self.FK__RequestMa__Candi__6C190EBB">
+            <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+            <End Role="RequestMaster" EntitySet="RequestMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestMa__ReqFr__6D0D32F4" Association="Self.FK__RequestMa__ReqFr__6D0D32F4">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="RequestMaster" EntitySet="RequestMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestMa__ReqTo__6E01572D" Association="Self.FK__RequestMa__ReqTo__6E01572D">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="RequestMaster" EntitySet="RequestMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SessionLi__RefTe__2645B050" Association="Self.FK__SessionLi__RefTe__2645B050">
+            <End Role="TechnologyMaster" EntitySet="TechnologyMaster" />
+            <End Role="SessionListDetails" EntitySet="SessionListDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Submissio__RefAs__6477ECF3" Association="Self.FK__Submissio__RefAs__6477ECF3">
+            <End Role="CandidateAssign" EntitySet="CandidateAssign" />
+            <End Role="SubmissionDetails" EntitySet="SubmissionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskManag__RefCT__2FCF1A8A" Association="Self.FK__TaskManag__RefCT__2FCF1A8A">
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+            <End Role="TaskManageMaster" EntitySet="TaskManageMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskManag__RefTa__2EDAF651" Association="Self.FK__TaskManag__RefTa__2EDAF651">
+            <End Role="TaskCategoryMaster" EntitySet="TaskCategoryMaster" />
+            <End Role="TaskManageMaster" EntitySet="TaskManageMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskStatu__RefTM__32AB8735" Association="Self.FK__TaskStatu__RefTM__32AB8735">
+            <End Role="TaskManageMaster" EntitySet="TaskManageMaster" />
+            <End Role="TaskStatusDetails" EntitySet="TaskStatusDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TeamDetai__Membe__656C112C" Association="Self.FK__TeamDetai__Membe__656C112C">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TeamDetai__TeamL__66603565" Association="Self.FK__TeamDetai__TeamL__66603565">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TeamDetai__TeamM__6754599E" Association="Self.FK__TeamDetai__TeamM__6754599E">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAccou__RefLo__68487DD7" Association="Self.FK__UserAccou__RefLo__68487DD7">
+            <End Role="LocationMaster" EntitySet="LocationMaster" />
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAccou__RefRo__1B0907CE" Association="Self.FK__UserAccou__RefRo__1B0907CE">
+            <End Role="RoleMaster" EntitySet="RoleMaster" />
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbDTRS" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BatchSessionDetail">
+          <Key>
+            <PropertyRef Name="BSId" />
+          </Key>
+          <Property Name="BSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefCTId" Type="Int32" Nullable="false" />
+          <Property Name="RefSessionId" Type="Int32" Nullable="false" />
+          <Property Name="SessionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SessionCompletedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OtherDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CandidateTechnicalExpertDetail" Relationship="Self.FK__BatchSess__RefCT__29221CFB" FromRole="BatchSessionDetails" ToRole="CandidateTechnicalExpertDetails" />
+          <NavigationProperty Name="SessionListDetail" Relationship="Self.FK__BatchSess__RefSe__2A164134" FromRole="BatchSessionDetails" ToRole="SessionListDetails" />
+        </EntityType>
+        <EntityType Name="CandidateBatchDetail">
+          <Key>
+            <PropertyRef Name="BatchId" />
+          </Key>
+          <Property Name="BatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BatchName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefTechId" Type="Int32" Nullable="false" />
+          <Property Name="BatchStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BatchEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BatchStartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="BatchEndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TotalSession" Type="Int32" Nullable="false" />
+          <Property Name="CompletedSession" Type="Int32" Nullable="false" />
+          <Property Name="BatchStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EditedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EditedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="CandidateTechnicalExpertDetails" Relationship="Self.FK__Candidate__RefBa__236943A5" FromRole="CandidateBatchDetails" ToRole="CandidateTechnicalExpertDetails" />
+          <NavigationProperty Name="TechnologyMaster" Relationship="Self.FK__Candidate__RefTe__1EA48E88" FromRole="CandidateBatchDetails" ToRole="TechnologyMaster" />
+        </EntityType>
+        <EntityType Name="CandidateTechnicalExpertDetail">
+          <Key>
+            <PropertyRef Name="CTId" />
+          </Key>
+          <Property Name="CTId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CTAssignDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CTReassigned" Type="Boolean" Nullable="false" />
+          <Property Name="CTAssingedRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CTReassignedRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RefAssignedCandidateId" Type="Int32" Nullable="false" />
+          <Property Name="RefAssignedExpertId" Type="Int32" Nullable="false" />
+          <Property Name="CTAssignIsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="AssignedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefBatchId" Type="Int32" />
+          <NavigationProperty Name="BatchSessionDetails" Relationship="Self.FK__BatchSess__RefCT__29221CFB" FromRole="CandidateTechnicalExpertDetails" ToRole="BatchSessionDetails" />
+          <NavigationProperty Name="CandidateBatchDetail" Relationship="Self.FK__Candidate__RefBa__236943A5" FromRole="CandidateTechnicalExpertDetails" ToRole="CandidateBatchDetails" />
+          <NavigationProperty Name="CandidateMaster" Relationship="Self.FK__Candidate__RefAs__2180FB33" FromRole="CandidateTechnicalExpertDetails" ToRole="CandidateMaster" />
+          <NavigationProperty Name="UserAccountDetail" Relationship="Self.FK__Candidate__RefAs__22751F6C" FromRole="CandidateTechnicalExpertDetails" ToRole="UserAccountDetails" />
+          <NavigationProperty Name="TaskManageMasters" Relationship="Self.FK__TaskManag__RefCT__2FCF1A8A" FromRole="CandidateTechnicalExpertDetails" ToRole="TaskManageMaster" />
+        </EntityType>
+        <EntityType Name="MarketingRevenueDetail">
+          <Key>
+            <PropertyRef Name="MRId" />
+          </Key>
+          <Property Name="MRId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RevenueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PaidIn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefUserId" Type="Int32" Nullable="false" />
+          <Property Name="IsRevenueVerified" Type="Boolean" Nullable="false" />
+          <Property Name="RefCandidateId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CandidateMaster" Relationship="Self.FK__Marketing__RefCa__367C1819" FromRole="MarketingRevenueDetails" ToRole="CandidateMaster" />
+          <NavigationProperty Name="UserAccountDetail" Relationship="Self.FK__Marketing__RefUs__3587F3E0" FromRole="MarketingRevenueDetails" ToRole="UserAccountDetails" />
+        </EntityType>
+        <EntityType Name="OnBoardingMaster">
+          <Key>
+            <PropertyRef Name="OBId" />
+          </Key>
+          <Property Name="OBId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OBDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EntryDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+          <Property Name="InstallmentDuration" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="InsertedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RefCandidatePOId" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="UpFrontAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PODetail" Relationship="Self.FK__OnBoardin__RefCa__17036CC0" FromRole="OnBoardingMaster" ToRole="PODetails" />
+          <NavigationProperty Name="OnBoardingPayments" Relationship="Self.FK__OnBoardin__RefOB__1AD3FDA4" FromRole="OnBoardingMaster" ToRole="OnBoardingPayment" />
+        </EntityType>
+        <EntityType Name="OnBoardingPayment">
+          <Key>
+            <PropertyRef Name="OBPId" />
+          </Key>
+          <Property Name="OBPId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OBPAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="OBPStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OBPDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OBPClearDate" Type="DateTime" Precision="0" />
+          <Property Name="OBPReceivedIn" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RefOBId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OnBoardingMaster" Relationship="Self.FK__OnBoardin__RefOB__1AD3FDA4" FromRole="OnBoardingPayment" ToRole="OnBoardingMaster" />
+        </EntityType>
+        <EntityType Name="PODetail">
+          <Key>
+            <PropertyRef Name="POId" />
+          </Key>
+          <Property Name="POId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefOfCandidate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefSaleId" Type="Int32" Nullable="false" />
+          <Property Name="JobType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AppliedPosition" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InterviewSupport" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EndClient" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VendorDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RecruiterName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TeamLeadName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="SignUpDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TrainerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrainingStartDate" Type="DateTime" Precision="0" />
+          <Property Name="TrainingEndDate" Type="DateTime" Precision="0" />
+          <Property Name="MarketingStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MarketingEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AgreementPercentage" Type="Int32" Nullable="false" />
+          <Property Name="AgreementMonths" Type="Int32" Nullable="false" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EnteryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdateBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="PODate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="OnBoardingMasters" Relationship="Self.FK__OnBoardin__RefCa__17036CC0" FromRole="PODetails" ToRole="OnBoardingMaster" />
+          <NavigationProperty Name="UserAccountDetail" Relationship="Self.FK__PODetails__RefSa__02FC7413" FromRole="PODetails" ToRole="UserAccountDetails" />
+        </EntityType>
+        <EntityType Name="ReportSubmissionDetail">
+          <Key>
+            <PropertyRef Name="ReportSId" />
+          </Key>
+          <Property Name="ReportSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="CandidateName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TeamLeadName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RecruiterName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VisaStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandidateEmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandidateMobileNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TotalSubmission" Type="Int32" Nullable="false" />
+          <Property Name="TotalInterview" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SessionListDetail">
+          <Key>
+            <PropertyRef Name="SessionId" />
+          </Key>
+          <Property Name="SessionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionNo" Type="Int32" Nullable="false" />
+          <Property Name="RefTechId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="MinDuration" Type="Int32" Nullable="false" />
+          <Property Name="PDFMaterialUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AssignmentLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EditedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EditedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+          <Property Name="VerifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VerifiedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TopicName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BatchSessionDetails" Relationship="Self.FK__BatchSess__RefSe__2A164134" FromRole="SessionListDetails" ToRole="BatchSessionDetails" />
+          <NavigationProperty Name="TechnologyMaster" Relationship="Self.FK__SessionLi__RefTe__2645B050" FromRole="SessionListDetails" ToRole="TechnologyMaster" />
+        </EntityType>
+        <EntityType Name="SubmissionMaster">
+          <Key>
+            <PropertyRef Name="SubmissionId" />
+          </Key>
+          <Property Name="SubmissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubmissionBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubmissionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CandidateName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VendorName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VendorCompanyName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VendorContactNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobPortal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InterviewDate" Type="DateTime" Precision="0" />
+          <Property Name="SupportAssignedTo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="InterviewStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InterviewFeedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="InterviewTime" Type="Time" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="TaskCategoryMaster">
+          <Key>
+            <PropertyRef Name="TaskCatId" />
+          </Key>
+          <Property Name="TaskCatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskCatTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TCIsEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TaskManageMasters" Relationship="Self.FK__TaskManag__RefTa__2EDAF651" FromRole="TaskCategoryMaster" ToRole="TaskManageMaster" />
+        </EntityType>
+        <EntityType Name="TaskManageMaster">
+          <Key>
+            <PropertyRef Name="TMId" />
+          </Key>
+          <Property Name="TMId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefTaskCatId" Type="Int32" Nullable="false" />
+          <Property Name="TaskDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TaskStartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TaskEndTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TaskStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefCTId" Type="Int32" Nullable="false" />
+          <Property Name="TotalMin" Type="Int32" Nullable="false" />
+          <Property Name="TaskRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TeamLeadFeedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FeedbackDate" Type="DateTime" Precision="0" />
+          <Property Name="FeedbackTime" Type="Time" Precision="7" />
+          <Property Name="FeedbackBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CandidateTechnicalExpertDetail" Relationship="Self.FK__TaskManag__RefCT__2FCF1A8A" FromRole="TaskManageMaster" ToRole="CandidateTechnicalExpertDetails" />
+          <NavigationProperty Name="TaskCategoryMaster" Relationship="Self.FK__TaskManag__RefTa__2EDAF651" FromRole="TaskManageMaster" ToRole="TaskCategoryMaster" />
+          <NavigationProperty Name="TaskStatusDetails" Relationship="Self.FK__TaskStatu__RefTM__32AB8735" FromRole="TaskManageMaster" ToRole="TaskStatusDetails" />
+        </EntityType>
+        <EntityType Name="TaskStatusDetail">
+          <Key>
+            <PropertyRef Name="TSId" />
+          </Key>
+          <Property Name="TSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefTMId" Type="Int32" Nullable="false" />
+          <Property Name="CurrentStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StatusTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StatusRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TaskManageMaster" Relationship="Self.FK__TaskStatu__RefTM__32AB8735" FromRole="TaskStatusDetails" ToRole="TaskManageMaster" />
+        </EntityType>
+        <EntityType Name="CandidateAssign">
+          <Key>
+            <PropertyRef Name="AssignedId" />
+          </Key>
+          <Property Name="AssignedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefTeamId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="refMarketingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CandidateMarketingDetail" Relationship="Self.FK__Candidate__refMa__5812160E" FromRole="CandidateAssign" ToRole="CandidateMarketingDetails" />
+          <NavigationProperty Name="TeamDetail" Relationship="Self.FK__Candidate__RefTe__59063A47" FromRole="CandidateAssign" ToRole="TeamDetails" />
+          <NavigationProperty Name="SubmissionDetails" Relationship="Self.FK__Submissio__RefAs__6477ECF3" FromRole="CandidateAssign" ToRole="SubmissionDetails" />
+        </EntityType>
+        <EntityType Name="CandidateMarketingDetail">
+          <Key>
+            <PropertyRef Name="MarketingId" />
+          </Key>
+          <Property Name="MarketingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefCandidateId" Type="Int32" Nullable="false" />
+          <Property Name="MarketingEmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MarketingContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OriginalResume" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MarketingResume" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InsertedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OtherRemarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MarketingStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LocationConcern" Type="Boolean" Nullable="false" />
+          <Property Name="RequiredLocationList" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="CandidateAssigns" Relationship="Self.FK__Candidate__refMa__5812160E" FromRole="CandidateMarketingDetails" ToRole="CandidateAssign" />
+          <NavigationProperty Name="CandidateMaster" Relationship="Self.FK__Candidate__RefCa__59FA5E80" FromRole="CandidateMarketingDetails" ToRole="CandidateMaster" />
+        </EntityType>
+        <EntityType Name="CandidateMaster">
+          <Key>
+            <PropertyRef Name="CandidateId" />
+          </Key>
+          <Property Name="CandidateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefSalesAssociate" Type="Int32" />
+          <Property Name="RefRecurringTypeId" Type="Int32" Nullable="false" />
+          <Property Name="RefServiceId" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PaidAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandidateStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="MarketingStartDate" Type="DateTime" Precision="0" />
+          <Property Name="VisaStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TechnologyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CandidateTechnicalExpertDetails" Relationship="Self.FK__Candidate__RefAs__2180FB33" FromRole="CandidateMaster" ToRole="CandidateTechnicalExpertDetails" />
+          <NavigationProperty Name="MarketingRevenueDetails" Relationship="Self.FK__Marketing__RefCa__367C1819" FromRole="CandidateMaster" ToRole="MarketingRevenueDetails" />
+          <NavigationProperty Name="CandidateMarketingDetails" Relationship="Self.FK__Candidate__RefCa__59FA5E80" FromRole="CandidateMaster" ToRole="CandidateMarketingDetails" />
+          <NavigationProperty Name="CandidateTimeLines" Relationship="Self.FK__Candidate__RefCa__5FB337D6" FromRole="CandidateMaster" ToRole="CandidateTimeLine" />
+          <NavigationProperty Name="RecurringType" Relationship="Self.FK__Candidate__RefRe__5AEE82B9" FromRole="CandidateMaster" ToRole="RecurringType" />
+          <NavigationProperty Name="UserAccountDetail" Relationship="Self.FK__Candidate__RefSa__5BE2A6F2" FromRole="CandidateMaster" ToRole="UserAccountDetails" />
+          <NavigationProperty Name="SalesServiceMaster" Relationship="Self.FK__Candidate__RefSe__5CD6CB2B" FromRole="CandidateMaster" ToRole="SalesServiceMaster" />
+          <NavigationProperty Name="TechnologyMaster" Relationship="Self.FK__Candidate__Techn__5DCAEF64" FromRole="CandidateMaster" ToRole="TechnologyMaster" />
+          <NavigationProperty Name="CommentDetails" Relationship="Self.FK__CommentDe__RefCa__60A75C0F" FromRole="CandidateMaster" ToRole="CommentDetails" />
+          <NavigationProperty Name="RecurringMasters" Relationship="Self.FK__Recurring__RefCa__6383C8BA" FromRole="CandidateMaster" ToRole="RecurringMaster" />
+          <NavigationProperty Name="RequestMasters" Relationship="dbDTRS.FK__RequestMa__Candi__6C190EBB" FromRole="CandidateMaster" ToRole="RequestMaster" />
+        </EntityType>
+        <EntityType Name="CandidateTimeLine">
+          <Key>
+            <PropertyRef Name="TimeLineId" />
+          </Key>
+          <Property Name="TimeLineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefCandidateId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="ChangedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CandidateMaster" Relationship="Self.FK__Candidate__RefCa__5FB337D6" FromRole="CandidateTimeLine" ToRole="CandidateMaster" />
+          <NavigationProperty Name="UserAccountDetail" Relationship="Self.FK__Candidate__Chang__5EBF139D" FromRole="CandidateTimeLine" ToRole="UserAccountDetails" />
+        </EntityType>
+        <EntityType Name="CommentDetail">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="CommentBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefCandidateId" Type="Int32" Nullable="false" />
+          <Property Name="CommentText" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CandidateMaster" Relationship="Self.FK__CommentDe__RefCa__60A75C0F" FromRole="CommentDetails" ToRole="CandidateMaster" />
+        </EntityType>
+        <EntityType Name="DepartmentMaster">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="InterviewDetail">
+          <Key>
+            <PropertyRef Name="InteviewId" />
+          </Key>
+          <Property Name="InteviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefSumissionId" Type="Int32" />
+          <Property Name="DateOfInterview" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TimeOfInterview" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="RefModeOfInterview" Type="Int32" Nullable="false" />
+          <Property Name="RoundOfInterv" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InterviewSupport" Type="Boolean" />
+          <Property Name="InterviewSupportName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InterviewDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InterviewJoiningDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InterviewSupportFeedback" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="PreviousInterview" Type="Int32" />
+          <NavigationProperty Name="SubmissionDetail" Relationship="Self.FK__Interview__RefSu__619B8048" FromRole="InterviewDetails" ToRole="SubmissionDetails" />
+        </EntityType>
+        <EntityType Name="InterviewMode">
+          <Key>
+            <PropertyRef Name="ModeId" />
+          </Key>
+          <Property Name="ModeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModeOfInterviewTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="JobPortalMaster">
+          <Key>
+            <PropertyRef Name="PortalId" />
+          </Key>
+          <Property Name="PortalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PortalTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeadMaster">
+          <Key>
+            <PropertyRef Name="Lid" />
+          </Key>
+          <Property Name="Lid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeadDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LeadBy" Type="Int32" Nullable="false" />
+          <Property Name="LeadType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LinkedInURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandidateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandidateNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LinkedInEmailid" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandidateLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TechnologyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedToSalesAssociate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserAccountDetail" Relationship="Self.FK__LeadMaste__LeadB__628FA481" FromRole="LeadMaster" ToRole="UserAccountDetails" />
+        </EntityType>
+        <EntityType Name="LocationMaster">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserAccountDetails" Relationship="Self.FK__UserAccou__RefLo__68487DD7" FromRole="LocationMaster" ToRole="UserAccountDetails" />
+        </EntityType>
+        <EntityType Name="RecurringMaster">
+          <Key>
+            <PropertyRef Name="RecurringId" />
+          </Key>
+          <Property Name="RecurringId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PaidDate" Type="DateTime" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="RefCandidateId" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedIn" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SendReminderEmail" Type="Boolean" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="remarks" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CandidateMaster" Relationship="Self.FK__Recurring__RefCa__6383C8BA" FromRole="RecurringMaster" ToRole="CandidateMaster" />
+          <Property Name="InstallmentNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RecurringType">
+          <Key>
+            <PropertyRef Name="RecurringTypeId" />
+          </Key>
+          <Property Name="RecurringTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecurringTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Installment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CandidateMasters" Relationship="Self.FK__Candidate__RefRe__5AEE82B9" FromRole="RecurringType" ToRole="CandidateMaster" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UserAccountDetails" Relationship="Self.FK__UserAccou__RefRo__1B0907CE" FromRole="RoleMaster" ToRole="UserAccountDetails" />
+        </EntityType>
+        <EntityType Name="SalesServiceMaster">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CandidateMasters" Relationship="Self.FK__Candidate__RefSe__5CD6CB2B" FromRole="SalesServiceMaster" ToRole="CandidateMaster" />
+        </EntityType>
+        <EntityType Name="SubmissionDetail">
+          <Key>
+            <PropertyRef Name="SubmissionId" />
+          </Key>
+          <Property Name="SubmissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="VendorName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VendorContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VendorCompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PerHourRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="JobTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobLocation" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="RefAssignedId" Type="Int32" Nullable="false" />
+          <Property Name="FollowUpDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StatusOfSubmission" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobPortal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CandidateAssign" Relationship="Self.FK__Submissio__RefAs__6477ECF3" FromRole="SubmissionDetails" ToRole="CandidateAssign" />
+          <NavigationProperty Name="InterviewDetails" Relationship="Self.FK__Interview__RefSu__619B8048" FromRole="SubmissionDetails" ToRole="InterviewDetails" />
+        </EntityType>
+        <EntityType Name="TargetDetail">
+          <Key>
+            <PropertyRef Name="TargetId" />
+          </Key>
+          <Property Name="TargetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Revenue" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PO" Type="Int32" Nullable="false" />
+          <Property Name="Lead" Type="Int32" Nullable="false" />
+          <Property Name="DailyCall" Type="Int32" Nullable="false" />
+          <Property Name="Candidate" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskMaster">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskTitleId" Type="Int32" />
+          <Property Name="TaskDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssignBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AssignTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AssignDate" Type="DateTime" Precision="3" />
+          <Property Name="AssignTime" Type="Time" Precision="7" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TaskTitleMaster">
+          <Key>
+            <PropertyRef Name="TaskTitleID" />
+          </Key>
+          <Property Name="TaskTitleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TeamDetail">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Member" Type="Int32" Nullable="false" />
+          <Property Name="TeamLead" Type="Int32" Nullable="false" />
+          <Property Name="TeamManager" Type="Int32" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsEnabledTeam" Type="Boolean" />
+          <NavigationProperty Name="CandidateAssigns" Relationship="Self.FK__Candidate__RefTe__59063A47" FromRole="TeamDetails" ToRole="CandidateAssign" />
+          <NavigationProperty Name="UserAccountDetail" Relationship="Self.FK__TeamDetai__Membe__656C112C" FromRole="TeamDetails" ToRole="UserAccountDetails" />
+          <NavigationProperty Name="UserAccountDetail1" Relationship="Self.FK__TeamDetai__TeamL__66603565" FromRole="TeamDetails" ToRole="UserAccountDetails" />
+          <NavigationProperty Name="UserAccountDetail2" Relationship="Self.FK__TeamDetai__TeamM__6754599E" FromRole="TeamDetails" ToRole="UserAccountDetails" />
+        </EntityType>
+        <EntityType Name="TechnologyMaster">
+          <Key>
+            <PropertyRef Name="TechId" />
+          </Key>
+          <Property Name="TechId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CandidateBatchDetails" Relationship="Self.FK__Candidate__RefTe__1EA48E88" FromRole="TechnologyMaster" ToRole="CandidateBatchDetails" />
+          <NavigationProperty Name="SessionListDetails" Relationship="Self.FK__SessionLi__RefTe__2645B050" FromRole="TechnologyMaster" ToRole="SessionListDetails" />
+          <NavigationProperty Name="CandidateMasters" Relationship="Self.FK__Candidate__Techn__5DCAEF64" FromRole="TechnologyMaster" ToRole="CandidateMaster" />
+        </EntityType>
+        <EntityType Name="UserAccountDetail">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RocketName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RefLocationId" Type="Int32" />
+          <Property Name="RefRoleId" Type="Int32" />
+          <Property Name="UserImageUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="LastLogin" Type="DateTime" Precision="0" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="CandidateTechnicalExpertDetails" Relationship="Self.FK__Candidate__RefAs__22751F6C" FromRole="UserAccountDetails" ToRole="CandidateTechnicalExpertDetails" />
+          <NavigationProperty Name="MarketingRevenueDetails" Relationship="Self.FK__Marketing__RefUs__3587F3E0" FromRole="UserAccountDetails" ToRole="MarketingRevenueDetails" />
+          <NavigationProperty Name="PODetails" Relationship="Self.FK__PODetails__RefSa__02FC7413" FromRole="UserAccountDetails" ToRole="PODetails" />
+          <NavigationProperty Name="CandidateMasters" Relationship="Self.FK__Candidate__RefSa__5BE2A6F2" FromRole="UserAccountDetails" ToRole="CandidateMaster" />
+          <NavigationProperty Name="CandidateTimeLines" Relationship="Self.FK__Candidate__Chang__5EBF139D" FromRole="UserAccountDetails" ToRole="CandidateTimeLine" />
+          <NavigationProperty Name="LeadMasters" Relationship="Self.FK__LeadMaste__LeadB__628FA481" FromRole="UserAccountDetails" ToRole="LeadMaster" />
+          <NavigationProperty Name="LocationMaster" Relationship="Self.FK__UserAccou__RefLo__68487DD7" FromRole="UserAccountDetails" ToRole="LocationMaster" />
+          <NavigationProperty Name="RoleMaster" Relationship="Self.FK__UserAccou__RefRo__1B0907CE" FromRole="UserAccountDetails" ToRole="RoleMaster" />
+          <NavigationProperty Name="TeamDetails" Relationship="Self.FK__TeamDetai__Membe__656C112C" FromRole="UserAccountDetails" ToRole="TeamDetails" />
+          <NavigationProperty Name="TeamDetails1" Relationship="Self.FK__TeamDetai__TeamL__66603565" FromRole="UserAccountDetails" ToRole="TeamDetails" />
+          <NavigationProperty Name="TeamDetails2" Relationship="Self.FK__TeamDetai__TeamM__6754599E" FromRole="UserAccountDetails" ToRole="TeamDetails" />
+          <NavigationProperty Name="RequestMasters" Relationship="dbDTRS.FK__RequestMa__ReqFr__6D0D32F4" FromRole="UserAccountDetail" ToRole="RequestMaster" />
+          <NavigationProperty Name="RequestMasters1" Relationship="dbDTRS.FK__RequestMa__ReqTo__6E01572D" FromRole="UserAccountDetail" ToRole="RequestMaster" />
+        </EntityType>
+        <EntityType Name="VisaTitleMaster">
+          <Key>
+            <PropertyRef Name="VisaId" />
+          </Key>
+          <Property Name="VisaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VisaTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BatchSess__RefCT__29221CFB">
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetail" Multiplicity="1" />
+          <End Role="BatchSessionDetails" Type="Self.BatchSessionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="CTId" />
+            </Principal>
+            <Dependent Role="BatchSessionDetails">
+              <PropertyRef Name="RefCTId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BatchSess__RefSe__2A164134">
+          <End Role="SessionListDetails" Type="Self.SessionListDetail" Multiplicity="1" />
+          <End Role="BatchSessionDetails" Type="Self.BatchSessionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SessionListDetails">
+              <PropertyRef Name="SessionId" />
+            </Principal>
+            <Dependent Role="BatchSessionDetails">
+              <PropertyRef Name="RefSessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefBa__236943A5">
+          <End Role="CandidateBatchDetails" Type="Self.CandidateBatchDetail" Multiplicity="0..1" />
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateBatchDetails">
+              <PropertyRef Name="BatchId" />
+            </Principal>
+            <Dependent Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="RefBatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefTe__1EA48E88">
+          <End Role="TechnologyMaster" Type="Self.TechnologyMaster" Multiplicity="1" />
+          <End Role="CandidateBatchDetails" Type="Self.CandidateBatchDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyMaster">
+              <PropertyRef Name="TechId" />
+            </Principal>
+            <Dependent Role="CandidateBatchDetails">
+              <PropertyRef Name="RefTechId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefAs__2180FB33">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="RefAssignedCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefAs__22751F6C">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="1" />
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="RefAssignedExpertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskManag__RefCT__2FCF1A8A">
+          <End Role="CandidateTechnicalExpertDetails" Type="Self.CandidateTechnicalExpertDetail" Multiplicity="1" />
+          <End Role="TaskManageMaster" Type="Self.TaskManageMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateTechnicalExpertDetails">
+              <PropertyRef Name="CTId" />
+            </Principal>
+            <Dependent Role="TaskManageMaster">
+              <PropertyRef Name="RefCTId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Marketing__RefCa__367C1819">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="MarketingRevenueDetails" Type="Self.MarketingRevenueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="MarketingRevenueDetails">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Marketing__RefUs__3587F3E0">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="1" />
+          <End Role="MarketingRevenueDetails" Type="Self.MarketingRevenueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MarketingRevenueDetails">
+              <PropertyRef Name="RefUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OnBoardin__RefCa__17036CC0">
+          <End Role="PODetails" Type="Self.PODetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OnBoardingMaster" Type="Self.OnBoardingMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PODetails">
+              <PropertyRef Name="POId" />
+            </Principal>
+            <Dependent Role="OnBoardingMaster">
+              <PropertyRef Name="RefCandidatePOId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OnBoardin__RefOB__1AD3FDA4">
+          <End Role="OnBoardingMaster" Type="Self.OnBoardingMaster" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OnBoardingPayment" Type="Self.OnBoardingPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnBoardingMaster">
+              <PropertyRef Name="OBId" />
+            </Principal>
+            <Dependent Role="OnBoardingPayment">
+              <PropertyRef Name="RefOBId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PODetails__RefSa__02FC7413">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="1" />
+          <End Role="PODetails" Type="Self.PODetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="PODetails">
+              <PropertyRef Name="RefSaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SessionLi__RefTe__2645B050">
+          <End Role="TechnologyMaster" Type="Self.TechnologyMaster" Multiplicity="1" />
+          <End Role="SessionListDetails" Type="Self.SessionListDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyMaster">
+              <PropertyRef Name="TechId" />
+            </Principal>
+            <Dependent Role="SessionListDetails">
+              <PropertyRef Name="RefTechId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskManag__RefTa__2EDAF651">
+          <End Role="TaskCategoryMaster" Type="Self.TaskCategoryMaster" Multiplicity="1" />
+          <End Role="TaskManageMaster" Type="Self.TaskManageMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskCategoryMaster">
+              <PropertyRef Name="TaskCatId" />
+            </Principal>
+            <Dependent Role="TaskManageMaster">
+              <PropertyRef Name="RefTaskCatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskStatu__RefTM__32AB8735">
+          <End Role="TaskManageMaster" Type="Self.TaskManageMaster" Multiplicity="1" />
+          <End Role="TaskStatusDetails" Type="Self.TaskStatusDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskManageMaster">
+              <PropertyRef Name="TMId" />
+            </Principal>
+            <Dependent Role="TaskStatusDetails">
+              <PropertyRef Name="RefTMId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__refMa__5812160E">
+          <End Role="CandidateMarketingDetails" Type="Self.CandidateMarketingDetail" Multiplicity="1" />
+          <End Role="CandidateAssign" Type="Self.CandidateAssign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMarketingDetails">
+              <PropertyRef Name="MarketingId" />
+            </Principal>
+            <Dependent Role="CandidateAssign">
+              <PropertyRef Name="refMarketingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefTe__59063A47">
+          <End Role="TeamDetails" Type="Self.TeamDetail" Multiplicity="1" />
+          <End Role="CandidateAssign" Type="Self.CandidateAssign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TeamDetails">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="CandidateAssign">
+              <PropertyRef Name="RefTeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Submissio__RefAs__6477ECF3">
+          <End Role="CandidateAssign" Type="Self.CandidateAssign" Multiplicity="1" />
+          <End Role="SubmissionDetails" Type="Self.SubmissionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateAssign">
+              <PropertyRef Name="AssignedId" />
+            </Principal>
+            <Dependent Role="SubmissionDetails">
+              <PropertyRef Name="RefAssignedId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefCa__59FA5E80">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="CandidateMarketingDetails" Type="Self.CandidateMarketingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateMarketingDetails">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefCa__5FB337D6">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="CandidateTimeLine" Type="Self.CandidateTimeLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateTimeLine">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefRe__5AEE82B9">
+          <End Role="RecurringType" Type="Self.RecurringType" Multiplicity="1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecurringType">
+              <PropertyRef Name="RecurringTypeId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="RefRecurringTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefSa__5BE2A6F2">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="0..1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="RefSalesAssociate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__RefSe__5CD6CB2B">
+          <End Role="SalesServiceMaster" Type="Self.SalesServiceMaster" Multiplicity="1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SalesServiceMaster">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="RefServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Techn__5DCAEF64">
+          <End Role="TechnologyMaster" Type="Self.TechnologyMaster" Multiplicity="1" />
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechnologyMaster">
+              <PropertyRef Name="TechId" />
+            </Principal>
+            <Dependent Role="CandidateMaster">
+              <PropertyRef Name="TechnologyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CommentDe__RefCa__60A75C0F">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="CommentDetails" Type="Self.CommentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CommentDetails">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recurring__RefCa__6383C8BA">
+          <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+          <End Role="RecurringMaster" Type="Self.RecurringMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="RecurringMaster">
+              <PropertyRef Name="RefCandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Candidate__Chang__5EBF139D">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="1" />
+          <End Role="CandidateTimeLine" Type="Self.CandidateTimeLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CandidateTimeLine">
+              <PropertyRef Name="ChangedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Interview__RefSu__619B8048">
+          <End Role="SubmissionDetails" Type="Self.SubmissionDetail" Multiplicity="0..1" />
+          <End Role="InterviewDetails" Type="Self.InterviewDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubmissionDetails">
+              <PropertyRef Name="SubmissionId" />
+            </Principal>
+            <Dependent Role="InterviewDetails">
+              <PropertyRef Name="RefSumissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeadMaste__LeadB__628FA481">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="1" />
+          <End Role="LeadMaster" Type="Self.LeadMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="LeadMaster">
+              <PropertyRef Name="LeadBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAccou__RefLo__68487DD7">
+          <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationMaster">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="UserAccountDetails">
+              <PropertyRef Name="RefLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserAccou__RefRo__1B0907CE">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="0..1" />
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserAccountDetails">
+              <PropertyRef Name="RefRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TeamDetai__Membe__656C112C">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="1" />
+          <End Role="TeamDetails" Type="Self.TeamDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamDetails">
+              <PropertyRef Name="Member" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TeamDetai__TeamL__66603565">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="1" />
+          <End Role="TeamDetails" Type="Self.TeamDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamDetails">
+              <PropertyRef Name="TeamLead" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TeamDetai__TeamM__6754599E">
+          <End Role="UserAccountDetails" Type="Self.UserAccountDetail" Multiplicity="1" />
+          <End Role="TeamDetails" Type="Self.TeamDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="TeamDetails">
+              <PropertyRef Name="TeamManager" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dashrdku_database" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BatchSessionDetails" EntityType="Self.BatchSessionDetail" />
+          <EntitySet Name="CandidateBatchDetails" EntityType="Self.CandidateBatchDetail" />
+          <EntitySet Name="CandidateTechnicalExpertDetails" EntityType="Self.CandidateTechnicalExpertDetail" />
+          <EntitySet Name="MarketingRevenueDetails" EntityType="Self.MarketingRevenueDetail" />
+          <EntitySet Name="OnBoardingMasters" EntityType="Self.OnBoardingMaster" />
+          <EntitySet Name="OnBoardingPayments" EntityType="Self.OnBoardingPayment" />
+          <EntitySet Name="PODetails" EntityType="Self.PODetail" />
+          <EntitySet Name="ReportSubmissionDetails" EntityType="Self.ReportSubmissionDetail" />
+          <EntitySet Name="SessionListDetails" EntityType="Self.SessionListDetail" />
+          <EntitySet Name="SubmissionMasters" EntityType="Self.SubmissionMaster" />
+          <EntitySet Name="TaskCategoryMasters" EntityType="Self.TaskCategoryMaster" />
+          <EntitySet Name="TaskManageMasters" EntityType="Self.TaskManageMaster" />
+          <EntitySet Name="TaskStatusDetails" EntityType="Self.TaskStatusDetail" />
+          <EntitySet Name="CandidateAssigns" EntityType="Self.CandidateAssign" />
+          <EntitySet Name="CandidateMarketingDetails" EntityType="Self.CandidateMarketingDetail" />
+          <EntitySet Name="CandidateMasters" EntityType="Self.CandidateMaster" />
+          <EntitySet Name="CandidateTimeLines" EntityType="Self.CandidateTimeLine" />
+          <EntitySet Name="CommentDetails" EntityType="Self.CommentDetail" />
+          <EntitySet Name="DepartmentMasters" EntityType="Self.DepartmentMaster" />
+          <EntitySet Name="InterviewDetails" EntityType="Self.InterviewDetail" />
+          <EntitySet Name="InterviewModes" EntityType="Self.InterviewMode" />
+          <EntitySet Name="JobPortalMasters" EntityType="Self.JobPortalMaster" />
+          <EntitySet Name="LeadMasters" EntityType="Self.LeadMaster" />
+          <EntitySet Name="LocationMasters" EntityType="Self.LocationMaster" />
+          <EntitySet Name="RecurringMasters" EntityType="Self.RecurringMaster" />
+          <EntitySet Name="RecurringTypes" EntityType="Self.RecurringType" />
+          <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
+          <EntitySet Name="SalesServiceMasters" EntityType="Self.SalesServiceMaster" />
+          <EntitySet Name="SubmissionDetails" EntityType="Self.SubmissionDetail" />
+          <EntitySet Name="TargetDetails" EntityType="Self.TargetDetail" />
+          <EntitySet Name="TaskMasters" EntityType="Self.TaskMaster" />
+          <EntitySet Name="TaskTitleMasters" EntityType="Self.TaskTitleMaster" />
+          <EntitySet Name="TeamDetails" EntityType="Self.TeamDetail" />
+          <EntitySet Name="TechnologyMasters" EntityType="Self.TechnologyMaster" />
+          <EntitySet Name="UserAccountDetails" EntityType="Self.UserAccountDetail" />
+          <EntitySet Name="VisaTitleMasters" EntityType="Self.VisaTitleMaster" />
+          <AssociationSet Name="FK__BatchSess__RefCT__29221CFB" Association="Self.FK__BatchSess__RefCT__29221CFB">
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+            <End Role="BatchSessionDetails" EntitySet="BatchSessionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BatchSess__RefSe__2A164134" Association="Self.FK__BatchSess__RefSe__2A164134">
+            <End Role="SessionListDetails" EntitySet="SessionListDetails" />
+            <End Role="BatchSessionDetails" EntitySet="BatchSessionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefBa__236943A5" Association="Self.FK__Candidate__RefBa__236943A5">
+            <End Role="CandidateBatchDetails" EntitySet="CandidateBatchDetails" />
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefTe__1EA48E88" Association="Self.FK__Candidate__RefTe__1EA48E88">
+            <End Role="TechnologyMaster" EntitySet="TechnologyMasters" />
+            <End Role="CandidateBatchDetails" EntitySet="CandidateBatchDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefAs__2180FB33" Association="Self.FK__Candidate__RefAs__2180FB33">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefAs__22751F6C" Association="Self.FK__Candidate__RefAs__22751F6C">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskManag__RefCT__2FCF1A8A" Association="Self.FK__TaskManag__RefCT__2FCF1A8A">
+            <End Role="CandidateTechnicalExpertDetails" EntitySet="CandidateTechnicalExpertDetails" />
+            <End Role="TaskManageMaster" EntitySet="TaskManageMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Marketing__RefCa__367C1819" Association="Self.FK__Marketing__RefCa__367C1819">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="MarketingRevenueDetails" EntitySet="MarketingRevenueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Marketing__RefUs__3587F3E0" Association="Self.FK__Marketing__RefUs__3587F3E0">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="MarketingRevenueDetails" EntitySet="MarketingRevenueDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OnBoardin__RefCa__17036CC0" Association="Self.FK__OnBoardin__RefCa__17036CC0">
+            <End Role="PODetails" EntitySet="PODetails" />
+            <End Role="OnBoardingMaster" EntitySet="OnBoardingMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OnBoardin__RefOB__1AD3FDA4" Association="Self.FK__OnBoardin__RefOB__1AD3FDA4">
+            <End Role="OnBoardingMaster" EntitySet="OnBoardingMasters" />
+            <End Role="OnBoardingPayment" EntitySet="OnBoardingPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PODetails__RefSa__02FC7413" Association="Self.FK__PODetails__RefSa__02FC7413">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="PODetails" EntitySet="PODetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SessionLi__RefTe__2645B050" Association="Self.FK__SessionLi__RefTe__2645B050">
+            <End Role="TechnologyMaster" EntitySet="TechnologyMasters" />
+            <End Role="SessionListDetails" EntitySet="SessionListDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskManag__RefTa__2EDAF651" Association="Self.FK__TaskManag__RefTa__2EDAF651">
+            <End Role="TaskCategoryMaster" EntitySet="TaskCategoryMasters" />
+            <End Role="TaskManageMaster" EntitySet="TaskManageMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskStatu__RefTM__32AB8735" Association="Self.FK__TaskStatu__RefTM__32AB8735">
+            <End Role="TaskManageMaster" EntitySet="TaskManageMasters" />
+            <End Role="TaskStatusDetails" EntitySet="TaskStatusDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__refMa__5812160E" Association="Self.FK__Candidate__refMa__5812160E">
+            <End Role="CandidateMarketingDetails" EntitySet="CandidateMarketingDetails" />
+            <End Role="CandidateAssign" EntitySet="CandidateAssigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefTe__59063A47" Association="Self.FK__Candidate__RefTe__59063A47">
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+            <End Role="CandidateAssign" EntitySet="CandidateAssigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Submissio__RefAs__6477ECF3" Association="Self.FK__Submissio__RefAs__6477ECF3">
+            <End Role="CandidateAssign" EntitySet="CandidateAssigns" />
+            <End Role="SubmissionDetails" EntitySet="SubmissionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefCa__59FA5E80" Association="Self.FK__Candidate__RefCa__59FA5E80">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="CandidateMarketingDetails" EntitySet="CandidateMarketingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefCa__5FB337D6" Association="Self.FK__Candidate__RefCa__5FB337D6">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="CandidateTimeLine" EntitySet="CandidateTimeLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefRe__5AEE82B9" Association="Self.FK__Candidate__RefRe__5AEE82B9">
+            <End Role="RecurringType" EntitySet="RecurringTypes" />
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefSa__5BE2A6F2" Association="Self.FK__Candidate__RefSa__5BE2A6F2">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__RefSe__5CD6CB2B" Association="Self.FK__Candidate__RefSe__5CD6CB2B">
+            <End Role="SalesServiceMaster" EntitySet="SalesServiceMasters" />
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Techn__5DCAEF64" Association="Self.FK__Candidate__Techn__5DCAEF64">
+            <End Role="TechnologyMaster" EntitySet="TechnologyMasters" />
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CommentDe__RefCa__60A75C0F" Association="Self.FK__CommentDe__RefCa__60A75C0F">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="CommentDetails" EntitySet="CommentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recurring__RefCa__6383C8BA" Association="Self.FK__Recurring__RefCa__6383C8BA">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="RecurringMaster" EntitySet="RecurringMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Candidate__Chang__5EBF139D" Association="Self.FK__Candidate__Chang__5EBF139D">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="CandidateTimeLine" EntitySet="CandidateTimeLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Interview__RefSu__619B8048" Association="Self.FK__Interview__RefSu__619B8048">
+            <End Role="SubmissionDetails" EntitySet="SubmissionDetails" />
+            <End Role="InterviewDetails" EntitySet="InterviewDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeadMaste__LeadB__628FA481" Association="Self.FK__LeadMaste__LeadB__628FA481">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="LeadMaster" EntitySet="LeadMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAccou__RefLo__68487DD7" Association="Self.FK__UserAccou__RefLo__68487DD7">
+            <End Role="LocationMaster" EntitySet="LocationMasters" />
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserAccou__RefRo__1B0907CE" Association="Self.FK__UserAccou__RefRo__1B0907CE">
+            <End Role="RoleMaster" EntitySet="RoleMasters" />
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TeamDetai__Membe__656C112C" Association="Self.FK__TeamDetai__Membe__656C112C">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TeamDetai__TeamL__66603565" Association="Self.FK__TeamDetai__TeamL__66603565">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TeamDetai__TeamM__6754599E" Association="Self.FK__TeamDetai__TeamM__6754599E">
+            <End Role="UserAccountDetails" EntitySet="UserAccountDetails" />
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+          </AssociationSet>
+          <EntitySet Name="RequestMasters" EntityType="dbDTRS.RequestMaster" />
+          <AssociationSet Name="FK__RequestMa__Candi__6C190EBB" Association="dbDTRS.FK__RequestMa__Candi__6C190EBB">
+            <End Role="CandidateMaster" EntitySet="CandidateMasters" />
+            <End Role="RequestMaster" EntitySet="RequestMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestMa__ReqFr__6D0D32F4" Association="dbDTRS.FK__RequestMa__ReqFr__6D0D32F4">
+            <End Role="UserAccountDetail" EntitySet="UserAccountDetails" />
+            <End Role="RequestMaster" EntitySet="RequestMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RequestMa__ReqTo__6E01572D" Association="dbDTRS.FK__RequestMa__ReqTo__6E01572D">
+            <End Role="UserAccountDetail" EntitySet="UserAccountDetails" />
+            <End Role="RequestMaster" EntitySet="RequestMasters" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="RequestMaster">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RequestTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId" Type="Int32" />
+          <Property Name="ReqFrom" Type="Int32" Nullable="false" />
+          <Property Name="ReqTo" Type="Int32" Nullable="false" />
+          <Property Name="Response" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Closed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CandidateMaster" Relationship="dbDTRS.FK__RequestMa__Candi__6C190EBB" FromRole="RequestMaster" ToRole="CandidateMaster" />
+          <NavigationProperty Name="UserAccountDetail" Relationship="dbDTRS.FK__RequestMa__ReqFr__6D0D32F4" FromRole="RequestMaster" ToRole="UserAccountDetail" />
+          <NavigationProperty Name="UserAccountDetail1" Relationship="dbDTRS.FK__RequestMa__ReqTo__6E01572D" FromRole="RequestMaster" ToRole="UserAccountDetail" />
+        </EntityType>
+        <Association Name="FK__RequestMa__Candi__6C190EBB">
+          <End Type="dbDTRS.CandidateMaster" Role="CandidateMaster" Multiplicity="0..1" />
+          <End Type="dbDTRS.RequestMaster" Role="RequestMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateMaster">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="RequestMaster">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestMa__ReqFr__6D0D32F4">
+          <End Type="dbDTRS.UserAccountDetail" Role="UserAccountDetail" Multiplicity="1" />
+          <End Type="dbDTRS.RequestMaster" Role="RequestMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetail">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RequestMaster">
+              <PropertyRef Name="ReqFrom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RequestMa__ReqTo__6E01572D">
+          <End Type="dbDTRS.UserAccountDetail" Role="UserAccountDetail" Multiplicity="1" />
+          <End Type="dbDTRS.RequestMaster" Role="RequestMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccountDetail">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RequestMaster">
+              <PropertyRef Name="ReqTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbDTRSStoreContainer" CdmEntityContainer="dashrdku_database">
+          <EntitySetMapping Name="BatchSessionDetails">
+            <EntityTypeMapping TypeName="dbDTRS.BatchSessionDetail">
+              <MappingFragment StoreEntitySet="BatchSessionDetails">
+                <ScalarProperty Name="BSId" ColumnName="BSId" />
+                <ScalarProperty Name="RefCTId" ColumnName="RefCTId" />
+                <ScalarProperty Name="RefSessionId" ColumnName="RefSessionId" />
+                <ScalarProperty Name="SessionDate" ColumnName="SessionDate" />
+                <ScalarProperty Name="SessionCompletedDate" ColumnName="SessionCompletedDate" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OtherDetails" ColumnName="OtherDetails" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateBatchDetails">
+            <EntityTypeMapping TypeName="dbDTRS.CandidateBatchDetail">
+              <MappingFragment StoreEntitySet="CandidateBatchDetails">
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+                <ScalarProperty Name="RefTechId" ColumnName="RefTechId" />
+                <ScalarProperty Name="BatchStartDate" ColumnName="BatchStartDate" />
+                <ScalarProperty Name="BatchEndDate" ColumnName="BatchEndDate" />
+                <ScalarProperty Name="BatchStartTime" ColumnName="BatchStartTime" />
+                <ScalarProperty Name="BatchEndTime" ColumnName="BatchEndTime" />
+                <ScalarProperty Name="TotalSession" ColumnName="TotalSession" />
+                <ScalarProperty Name="CompletedSession" ColumnName="CompletedSession" />
+                <ScalarProperty Name="BatchStatus" ColumnName="BatchStatus" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EditedBy" ColumnName="EditedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateTechnicalExpertDetails">
+            <EntityTypeMapping TypeName="dbDTRS.CandidateTechnicalExpertDetail">
+              <MappingFragment StoreEntitySet="CandidateTechnicalExpertDetails">
+                <ScalarProperty Name="CTId" ColumnName="CTId" />
+                <ScalarProperty Name="CTAssignDate" ColumnName="CTAssignDate" />
+                <ScalarProperty Name="CTReassigned" ColumnName="CTReassigned" />
+                <ScalarProperty Name="CTAssingedRemarks" ColumnName="CTAssingedRemarks" />
+                <ScalarProperty Name="CTReassignedRemarks" ColumnName="CTReassignedRemarks" />
+                <ScalarProperty Name="RefAssignedCandidateId" ColumnName="RefAssignedCandidateId" />
+                <ScalarProperty Name="RefAssignedExpertId" ColumnName="RefAssignedExpertId" />
+                <ScalarProperty Name="CTAssignIsEnabled" ColumnName="CTAssignIsEnabled" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+                <ScalarProperty Name="RefBatchId" ColumnName="RefBatchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarketingRevenueDetails">
+            <EntityTypeMapping TypeName="dbDTRS.MarketingRevenueDetail">
+              <MappingFragment StoreEntitySet="MarketingRevenueDetails">
+                <ScalarProperty Name="MRId" ColumnName="MRId" />
+                <ScalarProperty Name="RevenueDate" ColumnName="RevenueDate" />
+                <ScalarProperty Name="PaidIn" ColumnName="PaidIn" />
+                <ScalarProperty Name="RefUserId" ColumnName="RefUserId" />
+                <ScalarProperty Name="IsRevenueVerified" ColumnName="IsRevenueVerified" />
+                <ScalarProperty Name="RefCandidateId" ColumnName="RefCandidateId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnBoardingMasters">
+            <EntityTypeMapping TypeName="dbDTRS.OnBoardingMaster">
+              <MappingFragment StoreEntitySet="OnBoardingMaster">
+                <ScalarProperty Name="OBId" ColumnName="OBId" />
+                <ScalarProperty Name="OBDate" ColumnName="OBDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="InstallmentDuration" ColumnName="InstallmentDuration" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="RefCandidatePOId" ColumnName="RefCandidatePOId" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="UpFrontAmount" ColumnName="UpFrontAmount" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnBoardingPayments">
+            <EntityTypeMapping TypeName="dbDTRS.OnBoardingPayment">
+              <MappingFragment StoreEntitySet="OnBoardingPayment">
+                <ScalarProperty Name="OBPId" ColumnName="OBPId" />
+                <ScalarProperty Name="OBPAmount" ColumnName="OBPAmount" />
+                <ScalarProperty Name="OBPStatus" ColumnName="OBPStatus" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="OBPDate" ColumnName="OBPDate" />
+                <ScalarProperty Name="OBPClearDate" ColumnName="OBPClearDate" />
+                <ScalarProperty Name="OBPReceivedIn" ColumnName="OBPReceivedIn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="RefOBId" ColumnName="RefOBId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PODetails">
+            <EntityTypeMapping TypeName="dbDTRS.PODetail">
+              <MappingFragment StoreEntitySet="PODetails">
+                <ScalarProperty Name="POId" ColumnName="POId" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="RefOfCandidate" ColumnName="RefOfCandidate" />
+                <ScalarProperty Name="RefSaleId" ColumnName="RefSaleId" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="AppliedPosition" ColumnName="AppliedPosition" />
+                <ScalarProperty Name="InterviewSupport" ColumnName="InterviewSupport" />
+                <ScalarProperty Name="JobLocation" ColumnName="JobLocation" />
+                <ScalarProperty Name="EndClient" ColumnName="EndClient" />
+                <ScalarProperty Name="VendorDetails" ColumnName="VendorDetails" />
+                <ScalarProperty Name="RecruiterName" ColumnName="RecruiterName" />
+                <ScalarProperty Name="TeamLeadName" ColumnName="TeamLeadName" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="SignUpDate" ColumnName="SignUpDate" />
+                <ScalarProperty Name="TrainerName" ColumnName="TrainerName" />
+                <ScalarProperty Name="TrainingStartDate" ColumnName="TrainingStartDate" />
+                <ScalarProperty Name="TrainingEndDate" ColumnName="TrainingEndDate" />
+                <ScalarProperty Name="MarketingStartDate" ColumnName="MarketingStartDate" />
+                <ScalarProperty Name="MarketingEndDate" ColumnName="MarketingEndDate" />
+                <ScalarProperty Name="AgreementPercentage" ColumnName="AgreementPercentage" />
+                <ScalarProperty Name="AgreementMonths" ColumnName="AgreementMonths" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="OtherDetails" ColumnName="OtherDetails" />
+                <ScalarProperty Name="AddBy" ColumnName="AddBy" />
+                <ScalarProperty Name="EnteryDate" ColumnName="EnteryDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PODate" ColumnName="PODate" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportSubmissionDetails">
+            <EntityTypeMapping TypeName="dbDTRS.ReportSubmissionDetail">
+              <MappingFragment StoreEntitySet="ReportSubmissionDetails">
+                <ScalarProperty Name="ReportSId" ColumnName="ReportSId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="TeamLeadName" ColumnName="TeamLeadName" />
+                <ScalarProperty Name="RecruiterName" ColumnName="RecruiterName" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="VisaStatus" ColumnName="VisaStatus" />
+                <ScalarProperty Name="CandidateEmailId" ColumnName="CandidateEmailId" />
+                <ScalarProperty Name="CandidateMobileNumber" ColumnName="CandidateMobileNumber" />
+                <ScalarProperty Name="TotalSubmission" ColumnName="TotalSubmission" />
+                <ScalarProperty Name="TotalInterview" ColumnName="TotalInterview" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SessionListDetails">
+            <EntityTypeMapping TypeName="dbDTRS.SessionListDetail">
+              <MappingFragment StoreEntitySet="SessionListDetails">
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="SessionNo" ColumnName="SessionNo" />
+                <ScalarProperty Name="RefTechId" ColumnName="RefTechId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="MinDuration" ColumnName="MinDuration" />
+                <ScalarProperty Name="PDFMaterialUrl" ColumnName="PDFMaterialUrl" />
+                <ScalarProperty Name="AssignmentLink" ColumnName="AssignmentLink" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EditedBy" ColumnName="EditedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="VerifiedBy" ColumnName="VerifiedBy" />
+                <ScalarProperty Name="VerifiedDate" ColumnName="VerifiedDate" />
+                <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubmissionMasters">
+            <EntityTypeMapping TypeName="dbDTRS.SubmissionMaster">
+              <MappingFragment StoreEntitySet="SubmissionMaster">
+                <ScalarProperty Name="SubmissionId" ColumnName="SubmissionId" />
+                <ScalarProperty Name="SubmissionBy" ColumnName="SubmissionBy" />
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="VendorCompanyName" ColumnName="VendorCompanyName" />
+                <ScalarProperty Name="VendorContactNumber" ColumnName="VendorContactNumber" />
+                <ScalarProperty Name="JobPortal" ColumnName="JobPortal" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="InterviewDate" ColumnName="InterviewDate" />
+                <ScalarProperty Name="SupportAssignedTo" ColumnName="SupportAssignedTo" />
+                <ScalarProperty Name="InterviewStatus" ColumnName="InterviewStatus" />
+                <ScalarProperty Name="InterviewFeedback" ColumnName="InterviewFeedback" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="InterviewTime" ColumnName="InterviewTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskCategoryMasters">
+            <EntityTypeMapping TypeName="dbDTRS.TaskCategoryMaster">
+              <MappingFragment StoreEntitySet="TaskCategoryMaster">
+                <ScalarProperty Name="TaskCatId" ColumnName="TaskCatId" />
+                <ScalarProperty Name="TaskCatTitle" ColumnName="TaskCatTitle" />
+                <ScalarProperty Name="TCIsEnabled" ColumnName="TCIsEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskManageMasters">
+            <EntityTypeMapping TypeName="dbDTRS.TaskManageMaster">
+              <MappingFragment StoreEntitySet="TaskManageMaster">
+                <ScalarProperty Name="TMId" ColumnName="TMId" />
+                <ScalarProperty Name="RefTaskCatId" ColumnName="RefTaskCatId" />
+                <ScalarProperty Name="TaskDate" ColumnName="TaskDate" />
+                <ScalarProperty Name="TaskStartTime" ColumnName="TaskStartTime" />
+                <ScalarProperty Name="TaskEndTime" ColumnName="TaskEndTime" />
+                <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
+                <ScalarProperty Name="RefCTId" ColumnName="RefCTId" />
+                <ScalarProperty Name="TotalMin" ColumnName="TotalMin" />
+                <ScalarProperty Name="TaskRemarks" ColumnName="TaskRemarks" />
+                <ScalarProperty Name="TeamLeadFeedback" ColumnName="TeamLeadFeedback" />
+                <ScalarProperty Name="FeedbackDate" ColumnName="FeedbackDate" />
+                <ScalarProperty Name="FeedbackTime" ColumnName="FeedbackTime" />
+                <ScalarProperty Name="FeedbackBy" ColumnName="FeedbackBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskStatusDetails">
+            <EntityTypeMapping TypeName="dbDTRS.TaskStatusDetail">
+              <MappingFragment StoreEntitySet="TaskStatusDetails">
+                <ScalarProperty Name="TSId" ColumnName="TSId" />
+                <ScalarProperty Name="RefTMId" ColumnName="RefTMId" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+                <ScalarProperty Name="StatusTime" ColumnName="StatusTime" />
+                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+                <ScalarProperty Name="StatusRemarks" ColumnName="StatusRemarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateAssigns">
+            <EntityTypeMapping TypeName="dbDTRS.CandidateAssign">
+              <MappingFragment StoreEntitySet="CandidateAssign">
+                <ScalarProperty Name="AssignedId" ColumnName="AssignedId" />
+                <ScalarProperty Name="RefTeamId" ColumnName="RefTeamId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="refMarketingId" ColumnName="refMarketingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateMarketingDetails">
+            <EntityTypeMapping TypeName="dbDTRS.CandidateMarketingDetail">
+              <MappingFragment StoreEntitySet="CandidateMarketingDetails">
+                <ScalarProperty Name="MarketingId" ColumnName="MarketingId" />
+                <ScalarProperty Name="RefCandidateId" ColumnName="RefCandidateId" />
+                <ScalarProperty Name="MarketingEmailId" ColumnName="MarketingEmailId" />
+                <ScalarProperty Name="MarketingContactNumber" ColumnName="MarketingContactNumber" />
+                <ScalarProperty Name="OriginalResume" ColumnName="OriginalResume" />
+                <ScalarProperty Name="MarketingResume" ColumnName="MarketingResume" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="OtherRemarks" ColumnName="OtherRemarks" />
+                <ScalarProperty Name="MarketingStatus" ColumnName="MarketingStatus" />
+                <ScalarProperty Name="LocationConcern" ColumnName="LocationConcern" />
+                <ScalarProperty Name="RequiredLocationList" ColumnName="RequiredLocationList" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateMasters">
+            <EntityTypeMapping TypeName="dbDTRS.CandidateMaster">
+              <MappingFragment StoreEntitySet="CandidateMaster">
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="RefSalesAssociate" ColumnName="RefSalesAssociate" />
+                <ScalarProperty Name="RefRecurringTypeId" ColumnName="RefRecurringTypeId" />
+                <ScalarProperty Name="RefServiceId" ColumnName="RefServiceId" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="CandidateStatus" ColumnName="CandidateStatus" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="MarketingStartDate" ColumnName="MarketingStartDate" />
+                <ScalarProperty Name="VisaStatus" ColumnName="VisaStatus" />
+                <ScalarProperty Name="TechnologyId" ColumnName="TechnologyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateTimeLines">
+            <EntityTypeMapping TypeName="dbDTRS.CandidateTimeLine">
+              <MappingFragment StoreEntitySet="CandidateTimeLine">
+                <ScalarProperty Name="TimeLineId" ColumnName="TimeLineId" />
+                <ScalarProperty Name="RefCandidateId" ColumnName="RefCandidateId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommentDetails">
+            <EntityTypeMapping TypeName="dbDTRS.CommentDetail">
+              <MappingFragment StoreEntitySet="CommentDetails">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="CommentBy" ColumnName="CommentBy" />
+                <ScalarProperty Name="RefCandidateId" ColumnName="RefCandidateId" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepartmentMasters">
+            <EntityTypeMapping TypeName="dbDTRS.DepartmentMaster">
+              <MappingFragment StoreEntitySet="DepartmentMaster">
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InterviewDetails">
+            <EntityTypeMapping TypeName="dbDTRS.InterviewDetail">
+              <MappingFragment StoreEntitySet="InterviewDetails">
+                <ScalarProperty Name="InteviewId" ColumnName="InteviewId" />
+                <ScalarProperty Name="RefSumissionId" ColumnName="RefSumissionId" />
+                <ScalarProperty Name="DateOfInterview" ColumnName="DateOfInterview" />
+                <ScalarProperty Name="TimeOfInterview" ColumnName="TimeOfInterview" />
+                <ScalarProperty Name="RefModeOfInterview" ColumnName="RefModeOfInterview" />
+                <ScalarProperty Name="RoundOfInterv" ColumnName="RoundOfInterv" />
+                <ScalarProperty Name="InterviewSupport" ColumnName="InterviewSupport" />
+                <ScalarProperty Name="InterviewSupportName" ColumnName="InterviewSupportName" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="InterviewDetails" ColumnName="InterviewDetails" />
+                <ScalarProperty Name="InterviewJoiningDetails" ColumnName="InterviewJoiningDetails" />
+                <ScalarProperty Name="InterviewSupportFeedback" ColumnName="InterviewSupportFeedback" />
+                <ScalarProperty Name="PreviousInterview" ColumnName="PreviousInterview" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InterviewModes">
+            <EntityTypeMapping TypeName="dbDTRS.InterviewMode">
+              <MappingFragment StoreEntitySet="InterviewMode">
+                <ScalarProperty Name="ModeId" ColumnName="ModeId" />
+                <ScalarProperty Name="ModeOfInterviewTitle" ColumnName="ModeOfInterviewTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobPortalMasters">
+            <EntityTypeMapping TypeName="dbDTRS.JobPortalMaster">
+              <MappingFragment StoreEntitySet="JobPortalMaster">
+                <ScalarProperty Name="PortalId" ColumnName="PortalId" />
+                <ScalarProperty Name="PortalTitle" ColumnName="PortalTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeadMasters">
+            <EntityTypeMapping TypeName="dbDTRS.LeadMaster">
+              <MappingFragment StoreEntitySet="LeadMaster">
+                <ScalarProperty Name="Lid" ColumnName="Lid" />
+                <ScalarProperty Name="LeadDate" ColumnName="LeadDate" />
+                <ScalarProperty Name="LeadBy" ColumnName="LeadBy" />
+                <ScalarProperty Name="LeadType" ColumnName="LeadType" />
+                <ScalarProperty Name="LinkedInURL" ColumnName="LinkedInURL" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="CandidateNumber" ColumnName="CandidateNumber" />
+                <ScalarProperty Name="LinkedInEmailid" ColumnName="LinkedInEmailid" />
+                <ScalarProperty Name="CandidateLocation" ColumnName="CandidateLocation" />
+                <ScalarProperty Name="TechnologyName" ColumnName="TechnologyName" />
+                <ScalarProperty Name="AssignedToSalesAssociate" ColumnName="AssignedToSalesAssociate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationMasters">
+            <EntityTypeMapping TypeName="dbDTRS.LocationMaster">
+              <MappingFragment StoreEntitySet="LocationMaster">
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecurringMasters">
+            <EntityTypeMapping TypeName="dbDTRS.RecurringMaster">
+              <MappingFragment StoreEntitySet="RecurringMaster">
+                <ScalarProperty Name="InstallmentNumber" ColumnName="InstallmentNumber" />
+                <ScalarProperty Name="RecurringId" ColumnName="RecurringId" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RefCandidateId" ColumnName="RefCandidateId" />
+                <ScalarProperty Name="ReceivedIn" ColumnName="ReceivedIn" />
+                <ScalarProperty Name="SendReminderEmail" ColumnName="SendReminderEmail" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecurringTypes">
+            <EntityTypeMapping TypeName="dbDTRS.RecurringType">
+              <MappingFragment StoreEntitySet="RecurringType">
+                <ScalarProperty Name="RecurringTypeId" ColumnName="RecurringTypeId" />
+                <ScalarProperty Name="RecurringTitle" ColumnName="RecurringTitle" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Installment" ColumnName="Installment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMasters">
+            <EntityTypeMapping TypeName="dbDTRS.RoleMaster">
+              <MappingFragment StoreEntitySet="RoleMaster">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleTitle" ColumnName="RoleTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesServiceMasters">
+            <EntityTypeMapping TypeName="dbDTRS.SalesServiceMaster">
+              <MappingFragment StoreEntitySet="SalesServiceMaster">
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubmissionDetails">
+            <EntityTypeMapping TypeName="dbDTRS.SubmissionDetail">
+              <MappingFragment StoreEntitySet="SubmissionDetails">
+                <ScalarProperty Name="SubmissionId" ColumnName="SubmissionId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="VendorContactNumber" ColumnName="VendorContactNumber" />
+                <ScalarProperty Name="VendorEmailId" ColumnName="VendorEmailId" />
+                <ScalarProperty Name="VendorCompanyName" ColumnName="VendorCompanyName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="PerHourRate" ColumnName="PerHourRate" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="JobLocation" ColumnName="JobLocation" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="RefAssignedId" ColumnName="RefAssignedId" />
+                <ScalarProperty Name="FollowUpDate" ColumnName="FollowUpDate" />
+                <ScalarProperty Name="StatusOfSubmission" ColumnName="StatusOfSubmission" />
+                <ScalarProperty Name="JobPortal" ColumnName="JobPortal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TargetDetails">
+            <EntityTypeMapping TypeName="dbDTRS.TargetDetail">
+              <MappingFragment StoreEntitySet="TargetDetails">
+                <ScalarProperty Name="TargetId" ColumnName="TargetId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Revenue" ColumnName="Revenue" />
+                <ScalarProperty Name="PO" ColumnName="PO" />
+                <ScalarProperty Name="Lead" ColumnName="Lead" />
+                <ScalarProperty Name="DailyCall" ColumnName="DailyCall" />
+                <ScalarProperty Name="Candidate" ColumnName="Candidate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskMasters">
+            <EntityTypeMapping TypeName="dbDTRS.TaskMaster">
+              <MappingFragment StoreEntitySet="TaskMaster">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="TaskTitleId" ColumnName="TaskTitleId" />
+                <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+                <ScalarProperty Name="AssignBy" ColumnName="AssignBy" />
+                <ScalarProperty Name="AssignTo" ColumnName="AssignTo" />
+                <ScalarProperty Name="AssignDate" ColumnName="AssignDate" />
+                <ScalarProperty Name="AssignTime" ColumnName="AssignTime" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskTitleMasters">
+            <EntityTypeMapping TypeName="dbDTRS.TaskTitleMaster">
+              <MappingFragment StoreEntitySet="TaskTitleMaster">
+                <ScalarProperty Name="TaskTitleID" ColumnName="TaskTitleID" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeamDetails">
+            <EntityTypeMapping TypeName="dbDTRS.TeamDetail">
+              <MappingFragment StoreEntitySet="TeamDetails">
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="Member" ColumnName="Member" />
+                <ScalarProperty Name="TeamLead" ColumnName="TeamLead" />
+                <ScalarProperty Name="TeamManager" ColumnName="TeamManager" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="IsEnabledTeam" ColumnName="IsEnabledTeam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechnologyMasters">
+            <EntityTypeMapping TypeName="dbDTRS.TechnologyMaster">
+              <MappingFragment StoreEntitySet="TechnologyMaster">
+                <ScalarProperty Name="TechId" ColumnName="TechId" />
+                <ScalarProperty Name="TechTitle" ColumnName="TechTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccountDetails">
+            <EntityTypeMapping TypeName="dbDTRS.UserAccountDetail">
+              <MappingFragment StoreEntitySet="UserAccountDetails">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="RocketName" ColumnName="RocketName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RefLocationId" ColumnName="RefLocationId" />
+                <ScalarProperty Name="RefRoleId" ColumnName="RefRoleId" />
+                <ScalarProperty Name="UserImageUrl" ColumnName="UserImageUrl" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisaTitleMasters">
+            <EntityTypeMapping TypeName="dbDTRS.VisaTitleMaster">
+              <MappingFragment StoreEntitySet="VisaTitleMaster">
+                <ScalarProperty Name="VisaId" ColumnName="VisaId" />
+                <ScalarProperty Name="VisaTitle" ColumnName="VisaTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestMasters">
+            <EntityTypeMapping TypeName="dbDTRS.RequestMaster">
+              <MappingFragment StoreEntitySet="RequestMaster">
+                <ScalarProperty Name="Closed" ColumnName="Closed" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
+                <ScalarProperty Name="ReqTo" ColumnName="ReqTo" />
+                <ScalarProperty Name="ReqFrom" ColumnName="ReqFrom" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
